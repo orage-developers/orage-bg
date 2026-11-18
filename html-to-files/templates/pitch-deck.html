@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Orage pitch deck</title>
+<!-- Pitch deck: problem, products, offer ladder, trickle-down, CTA. PPTX and PDF. -->
+<style>
+  /* ORAGE brand, dark mode (slides): see brand/BRAND-GUIDELINES.md. */
+  @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
+  /* One family per weight: Word and LibreOffice only know normal and bold, so
+     Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
+  @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
+  @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
+  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
+  :root {
+    --o-bg-primary: #000000; --o-bg-secondary: #151515; --o-bg-container: #212121;
+    --o-gold: #B68039; --o-copper: #E4AF7A; --o-dark-accent: #543C1C;
+    --o-text-primary: #FFD69C; --o-text-secondary: #FFE8C7;
+    --font-display: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+    --font-body: 'Montserrat Medium', Helvetica, Arial, sans-serif;
+    --font-semibold: 'Montserrat SemiBold', Helvetica, Arial, sans-serif;
+    --font-bold: 'Montserrat', Helvetica, Arial, sans-serif;
+  }
+
+  /* 16:9. Each <section class="slide"> is one page = one slide. Do not change. */
+  @page { size: 13.333in 7.5in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--o-bg-primary); }
+  body { font-family: var(--font-body); color: var(--o-text-primary); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide {
+    position: relative; width: 13.333in; height: 7.5in; padding: 0.8in 0.9in 0.9in;
+    overflow: hidden; page-break-after: always; break-after: page;
+    display: flex; flex-direction: column; background: var(--o-bg-primary);
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  /* Bebas Neue: weight 400 only, always uppercase and letter-spaced. */
+  .slide h1, .slide h2, .slide h3, .eyebrow, .big, .price { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; margin: 0; }
+  .slide h1 { font-size: 88pt; letter-spacing: 6px; line-height: 0.95; color: var(--o-gold); }
+  .slide h2 { font-size: 54pt; letter-spacing: 3px; line-height: 1; color: var(--o-copper); }
+  .slide h3 { font-size: 28pt; letter-spacing: 2px; line-height: 1.05; color: var(--o-copper); margin-bottom: 0.1in; }
+  .eyebrow { font-size: 16pt; letter-spacing: 5px; color: var(--o-gold); margin-bottom: 0.15in; }
+  .rule { width: 1.2in; height: 2px; background: var(--o-gold); margin: 0.25in 0 0.35in; }
+  .slide p, .slide li { font-size: 22pt; line-height: 1.6; margin: 0; }
+  .lead { font-family: var(--font-semibold); color: var(--o-text-secondary); }
+  strong { font-family: var(--font-bold); font-weight: 700; color: var(--o-gold); }
+  .slide ul { margin: 0; padding-left: 0.35in; }
+  .slide li { margin-bottom: 0.1in; }
+  .slide li::marker { color: var(--o-gold); }
+  .foot {
+    position: absolute; left: 0.9in; right: 0.9in; bottom: 0.4in;
+    display: flex; justify-content: space-between;
+    font-family: var(--font-display); font-size: 13pt; letter-spacing: 3px; color: var(--o-gold);
+  }
+
+  .cover { background: var(--o-bg-secondary); justify-content: center; }
+  .emblem { width: 1.3in; height: 1.3in; margin-bottom: 0.3in; }
+  .card { background: var(--o-bg-container); border: 1px solid var(--o-dark-accent); border-radius: 12px; padding: 0.35in 0.4in; }
+  .card.featured { border: 2px solid var(--o-gold); }
+  .card p { font-size: 17pt; line-height: 1.5; }
+  .big { font-size: 150pt; letter-spacing: 4px; color: var(--o-gold); line-height: 0.9; }
+  .price { font-size: 44pt; letter-spacing: 2px; color: var(--o-gold); line-height: 1; margin: 0.1in 0; }
+  .small { font-size: 14pt !important; color: var(--o-text-secondary); }
+  /* Bebas Neue has no →: it goes in Montserrat. */
+  .arrow { font-family: var(--font-bold); font-weight: 700; }
+  .cols { display: flex; gap: 0.6in; align-items: center; }
+  .cols > div { flex: 1; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.35in; align-items: stretch; }
+</style>
+</head>
+<body>
+  <section class="slide cover">
+    <img class="emblem" src="brand://logo/logo.png" alt="Orage AI Agency">
+    <p class="eyebrow">Orage AI Agency · [Client]</p>
+    <h1>Your team<br>at 3X capacity</h1>
+    <div class="rule"></div>
+    <p class="lead">Without adding a single hire.</p>
+  </section>
+
+  <section class="slide">
+    <p class="eyebrow">01 — The problem</p>
+    <h2>[The constraint]</h2>
+    <div class="rule"></div>
+    <ul>
+      <li>[Missed calls and slow follow-up]</li>
+      <li>[Manual data entry eats productive hours]</li>
+      <li>[Hiring costs more than it returns]</li>
+    </ul>
+    <div class="foot"><span>Orage AI Agency</span><span>02</span></div>
+  </section>
+
+  <section class="slide">
+    <p class="eyebrow">02 — What we build</p>
+    <h2>AI plus humans</h2>
+    <div class="rule"></div>
+    <div class="grid3">
+      <div class="card"><h3>STACY</h3><p>24/7 AI phone agent. Answers, qualifies, books, logs to CRM. Live in 24 hours.</p></div>
+      <div class="card"><h3>AI Chat</h3><p>Website chat and SMS automation. Every inbound message gets a next step.</p></div>
+      <div class="card"><h3>Pre-Configured CRM</h3><p>Fills itself from STACY and chat interactions.</p></div>
+    </div>
+    <div class="foot"><span>Orage AI Agency</span><span>03</span></div>
+  </section>
+
+  <section class="slide">
+    <p class="eyebrow">03 — The offer</p>
+    <h2>Pick your tier</h2>
+    <div class="rule"></div>
+    <div class="grid3">
+      <div class="card"><h3>AI Toolkit</h3><p class="price">TBD</p><p class="small">DIY · For buyers testing the water</p></div>
+      <div class="card featured"><h3>Orage 90</h3><p class="price">$2,500 /mo</p><p class="small">Done-for-you · 90-day performance guarantee</p></div>
+      <div class="card"><h3>AI First</h3><p class="price">Custom</p><p class="small">DFY+ · Custom agents for scaled organizations</p></div>
+    </div>
+    <div class="foot"><span>Orage AI Agency</span><span>04</span></div>
+  </section>
+
+  <section class="slide">
+    <p class="eyebrow">04 — How it compounds</p>
+    <h2>Trickle-down agents</h2>
+    <div class="rule"></div>
+    <div class="cols">
+      <div><p>Custom agents built for Tier 3 clients are pushed to Tier 2 at no extra cost.</p></div>
+      <div class="card"><p><strong>Weekly Group Call.</strong> Bring a problem. Leave with a framework, agent or tool.</p></div>
+    </div>
+    <div class="foot"><span>Orage AI Agency</span><span>05</span></div>
+  </section>
+
+  <section class="slide cover">
+    <img class="emblem" src="brand://logo/logo.png" alt="Orage AI Agency">
+    <h2>Secure your Orage 90 <span class="arrow">→</span></h2>
+    <div class="rule"></div>
+    <p class="lead">[Booking link] · orage.agency</p>
+  </section>
+</body>
+</html>

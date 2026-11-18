@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Project tracker</title>
+<!-- Project tracker: tasks with status, done flag formula and a summary sheet. XLSX and PDF. -->
+<style>
+  /* Styling only affects the PDF of this HTML. XLSX and CSV read the tables.
+     ORAGE brand, dark mode: see brand/BRAND-GUIDELINES.md. */
+  @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
+  /* One family per weight: Word and LibreOffice only know normal and bold, so
+     Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
+  @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
+  @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
+  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
+  @page {
+    size: Letter landscape; margin: 0.6in 0.6in 0.8in; background: #000000;
+    @bottom-center { content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency"; font-family: "Montserrat Medium", Arial, sans-serif; font-size: 8pt; color: #B68039; }
+  }
+  html, body { background: #000000; }
+  body { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-size: 9.5pt; color: #FFD69C; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  header { display: flex; align-items: center; gap: 12pt; background: #151515; padding: 10pt 14pt; }
+  header img { width: 40px; height: 40px; }
+  header span, caption { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; text-transform: uppercase; }
+  header span { font-size: 18pt; letter-spacing: 4px; color: #B68039; }
+  table { width: 100%; border-collapse: collapse; margin: 14pt 0; }
+  caption { font-size: 18pt; letter-spacing: 3px; color: #E4AF7A; text-align: left; padding-bottom: 3pt; border-bottom: 2px solid #B68039; margin-bottom: 6pt; }
+  th { background: #212121; color: #E4AF7A; font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; text-align: left; padding: 5pt 7pt; }
+  td { background: #151515; border-bottom: 1px solid #543C1C; padding: 5pt 7pt; }
+  tr.total td { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #FFE8C7; border-top: 2px solid #B68039; }
+  .key { font-family: "Montserrat", Helvetica, Arial, sans-serif; color: #B68039; font-weight: 700; }
+  .note { font-size: 8.5pt; color: #FFE8C7; margin: 4pt 0 0; }
+</style>
+</head>
+<body>
+  <header><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
+
+  <!-- Each top-level <table> = one XLSX sheet / one CSV file. <caption> titles it in the PDF. -->
+  <table data-sheet="Tracker">
+    <caption>Project tracker · [Client]</caption>
+    <tr><th>Week</th><th>Task</th><th>Owner</th><th>Status</th><th>Due</th><th>Done</th></tr>
+    <tr><td>1</td><td>Kickoff and access</td><td>[Owner]</td><td>Done</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D2=&quot;Done&quot;,1,0)">1</td></tr>
+    <tr><td>1</td><td>STACY live</td><td>[Owner]</td><td>Done</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D3=&quot;Done&quot;,1,0)">1</td></tr>
+    <tr><td>2</td><td>Chat agent live</td><td>[Owner]</td><td>In progress</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D4=&quot;Done&quot;,1,0)">0</td></tr>
+    <tr><td>3</td><td>CRM connected</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D5=&quot;Done&quot;,1,0)">0</td></tr>
+    <tr><td>4</td><td>First weekly review</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D6=&quot;Done&quot;,1,0)">0</td></tr>
+    <tr><td>12</td><td>90-day review</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D7=&quot;Done&quot;,1,0)">0</td></tr>
+  </table>
+
+  <table data-sheet="Summary">
+    <caption>Summary</caption>
+    <tr><th>Measure</th><th>Value</th></tr>
+    <tr><td>Tasks</td><td data-formula="=COUNTA(Tracker!B2:B7)">6</td></tr>
+    <tr><td>Done</td><td data-formula="=SUM(Tracker!F2:F7)">2</td></tr>
+    <tr><td>Progress</td><td class="key" data-formula="=ROUND(B3/B2*100,0)&amp;&quot;%&quot;">33%</td></tr>
+  </table>
+  <p class="note">Status values: Done, In progress, Not started. Formulas recalculate in Excel; keep the visible text equal to the result.</p>
+</body>
+</html>

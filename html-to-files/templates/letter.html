@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter to Recipient</title>
+<!-- Letter: date, recipient, subject, body, signature. DOCX and PDF. -->
+<style>
+  /* ORAGE brand, dark mode (docs and PDF): see brand/BRAND-GUIDELINES.md.
+     Hex colors only: the DOCX import does not read CSS variables. */
+  @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
+  /* One family per weight: Word and LibreOffice only know normal and bold, so
+     Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
+  @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
+  @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
+  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
+
+  /* Page: Chrome uses it for the PDF. The footer repeats on every PDF page. */
+  @page {
+    size: Letter; margin: 0.75in 0.75in 0.9in; background: #000000;
+    @bottom-center {
+      content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency";
+      font-family: "Montserrat Medium", Arial, sans-serif; font-size: 8pt; color: #B68039;
+    }
+  }
+  html, body { background: #000000; }
+
+  /* Font on every selector: the LibreOffice DOCX import does not inherit from body. */
+  body, p, li, td, th, span { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-weight: normal; color: #FFD69C; }
+  h1, h2, h3, .eyebrow, .wordmark, .price, .sig-name { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; }
+  body { font-size: 10.5pt; line-height: 1.65; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1 { font-size: 34pt; letter-spacing: 4px; line-height: 1.05; margin: 14pt 0 4pt; color: #B68039; }
+  h2 { font-size: 20pt; letter-spacing: 3px; margin: 20pt 0 6pt; padding-bottom: 3pt; border-bottom: 2px solid #B68039; color: #E4AF7A; }
+  h3 { font-size: 15pt; letter-spacing: 2px; margin: 10pt 0 4pt; color: #E4AF7A; }
+  p  { margin: 0 0 8pt; }
+  a  { color: #B68039; }
+  .eyebrow { font-size: 10pt; letter-spacing: 4px; color: #B68039; margin: 14pt 0 0; }
+  .lead { font-family: "Montserrat SemiBold", Helvetica, Arial, sans-serif; font-size: 11.5pt; color: #FFE8C7; }
+  .key, strong { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
+  .muted { color: #FFE8C7; font-size: 9pt; }
+
+  /* Header band with the emblem. A table: the DOCX import has no flex. */
+  .band { width: 100%; border-collapse: collapse; }
+  .band td { background: #151515; border: none; padding: 12pt 14pt; vertical-align: middle; }
+  .wordmark { color: #B68039; font-size: 18pt; letter-spacing: 4px; }
+
+  .data { width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; }
+  .data th { background: #212121; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; }
+  .data td { background: #151515; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; vertical-align: top; }
+  /* Header text: DOCX drops the th color but keeps a span color. */
+  .th { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #E4AF7A; }
+  .num { text-align: right; }
+
+  /* Feature box and price box: one-cell tables so DOCX keeps the fill. */
+  .box { width: 100%; border-collapse: collapse; margin: 8pt 0; page-break-inside: avoid; }
+  .box td { background: #212121; border: 1px solid #543C1C; padding: 10pt 12pt; vertical-align: top; }
+  .box.price-box td { border: 2px solid #B68039; }
+  .price { font-size: 30pt; letter-spacing: 2px; color: #B68039; margin: 0; }
+  .cta { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
+  /* Bebas Neue has no →: it goes in Montserrat. */
+  .arrow { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
+  .sig-name { font-size: 16pt; letter-spacing: 2px; color: #E4AF7A; margin: 0; }
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body bgcolor="#000000" text="#FFD69C">
+  <table class="band" width="100%" cellspacing="0" cellpadding="12" bgcolor="#151515">
+    <tr>
+      <td width="64" bgcolor="#151515"><img src="brand://logo/logo.png" width="56" height="56" alt="Orage AI Agency"></td>
+      <td bgcolor="#151515"><span class="wordmark">ORAGE AI AGENCY</span></td>
+    </tr>
+  </table>
+
+  <p class="muted" style="margin-top: 18pt;">[Month DD, YYYY]</p>
+  <p>[Recipient name]<br>[Title]<br>[Company]</p>
+
+  <p class="eyebrow">Re: [Subject]</p>
+  <p>[First name],</p>
+  <p>[Open with the result for the reader. One short paragraph.]</p>
+  <p>[Supporting detail: what we will do, by when, and what you need to do. Keep it under 120 words.]</p>
+  <p>[One clear next step.]</p>
+
+  <p style="margin-top: 16pt;">Talk soon,</p>
+  <p class="sig-name">[Full name]</p>
+  <p class="muted">[Title] · Orage AI Agency<br>[email] · orage.agency</p>
+</body>
+</html>

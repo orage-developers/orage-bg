@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Contact list</title>
+<!-- Contact or lead list: one table, built for CSV; XLSX and PDF also work. -->
+<style>
+  /* Styling only affects the PDF of this HTML. XLSX and CSV read the tables.
+     ORAGE brand, dark mode: see brand/BRAND-GUIDELINES.md. */
+  @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
+  /* One family per weight: Word and LibreOffice only know normal and bold, so
+     Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
+  @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
+  @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
+  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
+  @page {
+    size: Letter landscape; margin: 0.6in 0.6in 0.8in; background: #000000;
+    @bottom-center { content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency"; font-family: "Montserrat Medium", Arial, sans-serif; font-size: 8pt; color: #B68039; }
+  }
+  html, body { background: #000000; }
+  body { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-size: 9.5pt; color: #FFD69C; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  header { display: flex; align-items: center; gap: 12pt; background: #151515; padding: 10pt 14pt; }
+  header img { width: 40px; height: 40px; }
+  header span, caption { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; text-transform: uppercase; }
+  header span { font-size: 18pt; letter-spacing: 4px; color: #B68039; }
+  table { width: 100%; border-collapse: collapse; margin: 14pt 0; }
+  caption { font-size: 18pt; letter-spacing: 3px; color: #E4AF7A; text-align: left; padding-bottom: 3pt; border-bottom: 2px solid #B68039; margin-bottom: 6pt; }
+  th { background: #212121; color: #E4AF7A; font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; text-align: left; padding: 5pt 7pt; }
+  td { background: #151515; border-bottom: 1px solid #543C1C; padding: 5pt 7pt; }
+  tr.total td { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #FFE8C7; border-top: 2px solid #B68039; }
+  .key { font-family: "Montserrat", Helvetica, Arial, sans-serif; color: #B68039; font-weight: 700; }
+  .note { font-size: 8.5pt; color: #FFE8C7; margin: 4pt 0 0; }
+</style>
+</head>
+<body>
+  <header><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
+
+  <!-- Each top-level <table> = one XLSX sheet / one CSV file. <caption> titles it in the PDF. -->
+  <table data-sheet="Contacts">
+    <caption>Contacts · [List name]</caption>
+    <tr><th>Name</th><th>Company</th><th>Email</th><th>Phone</th><th>Revenue band</th><th>Source</th><th>Stage</th></tr>
+    <tr><td>[Name]</td><td>[Company]</td><td>[email]</td><td data-type="text">[+1 405 000 0000]</td><td>$1M–$5M</td><td>[Referral]</td><td>New</td></tr>
+    <tr><td>[Name]</td><td>[Company]</td><td>[email]</td><td data-type="text">[+1 405 000 0000]</td><td>$5M–$20M</td><td>[Website]</td><td>Qualified</td></tr>
+  </table>
+  <p class="note">One table, one CSV. Phones, ZIP codes and IDs use data-type="text" to keep leading zeros. Mark sample data as sample.</p>
+</body>
+</html>
