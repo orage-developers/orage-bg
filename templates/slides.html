@@ -57,6 +57,8 @@
   .card { background: var(--o-bg-container); border: 1px solid var(--o-dark-accent); border-radius: 12px; padding: 0.35in 0.4in; }
   .card.featured { border: 2px solid var(--o-gold); }
   .card p { font-size: 17pt; line-height: 1.5; }
+  /* .card p would otherwise shrink prices inside cards. */
+  .card p.price { font-size: 44pt; }
   .big { font-size: 150pt; letter-spacing: 4px; color: var(--o-gold); line-height: 0.9; }
   .price { font-size: 44pt; letter-spacing: 2px; color: var(--o-gold); line-height: 1; margin: 0.1in 0; }
   .small { font-size: 14pt !important; color: var(--o-text-secondary); }

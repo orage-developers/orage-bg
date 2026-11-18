@@ -125,12 +125,15 @@ def ensure_brand_fonts():
         target = Path.home() / ".local/share/fonts/orage-brand"
     else:
         return
-    installed = ""
+    # Compare by file name, not family: a family can be installed with only
+    # some of the weights the brand needs.
+    installed = set()
     if shutil.which("fc-list"):
-        installed = subprocess.run(["fc-list", ":", "family"], capture_output=True,
-                                   text=True).stdout
-    missing = [f for fam, files in BRAND_FONTS.items() if fam not in installed
-               for f in files if (BRAND_DIR / "fonts" / f).is_file()]
+        out = subprocess.run(["fc-list", ":", "file"], capture_output=True, text=True).stdout
+        installed = {Path(line.split(":")[0]).name for line in out.splitlines()}
+    installed |= {p.name for p in target.glob("*")}
+    missing = [f for files in BRAND_FONTS.values() for f in files
+               if f not in installed and (BRAND_DIR / "fonts" / f).is_file()]
     if not missing:
         return
     target.mkdir(parents=True, exist_ok=True)

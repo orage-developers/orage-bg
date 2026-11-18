@@ -6,7 +6,9 @@ that compares two periods, two channels or two groups (Q1 vs Q2, this month
 vs last month, TikTok vs Instagram).
 
 - Lead with how much it changed, in %: the headline is the main change in
-  one line ("Views up +42.0% in Q2").
+  one line ("Views up +42.0% in Q2"). In the report it is the H1; in
+  comparison data the first `<caption>` carries it (`TikTok · Q1 vs Q2 ·
+  Views +42.0%`) and the tiles repeat it.
 - Every compared metric shows the absolute change (`+170,000`) and the %
   change (`+42.0%`), both computed from the same numbers. In XLSX use
   formulas and `data-format="percent"`.
