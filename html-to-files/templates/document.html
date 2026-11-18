@@ -38,13 +38,13 @@
   .key, strong { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
   .muted { color: #DEDEDE; font-size: 9pt; }
 
-  /* Header band with the emblem. A table: the DOCX import has no flex. */
+  /* Header with the emblem, no background. A table: the DOCX import has no flex. */
   .band { width: 100%; border-collapse: collapse; }
-  .band td { background: #151515; border: none; padding: 12pt 14pt; vertical-align: middle; }
+  .band td { border: none; padding: 6pt 0; vertical-align: middle; }
   .wordmark { color: #B68039; font-size: 18pt; letter-spacing: 4px; }
   /* Compact header: small emblem and wordmark, right-aligned. */
   .band-sm { width: 100%; border-collapse: collapse; }
-  .band-sm td { background: #151515; border: none; padding: 5pt 10pt; text-align: right; vertical-align: middle; }
+  .band-sm td { border: none; padding: 4pt 0; text-align: right; vertical-align: middle; }
   .band-sm img { vertical-align: middle; }
   .wordmark-sm { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; color: #B68039; font-size: 11pt; letter-spacing: 3px; vertical-align: middle; }
 
@@ -70,8 +70,8 @@
 </style>
 </head>
 <body bgcolor="#010101" text="#FEFEFE">
-  <table class="band-sm" width="100%" cellspacing="0" cellpadding="5" bgcolor="#151515">
-    <tr><td align="right" bgcolor="#151515"><img src="brand://logo/logo.png" width="22" height="22" alt="Orage AI Agency">&nbsp;&nbsp;<span class="wordmark-sm">ORAGE AI AGENCY</span></td></tr>
+  <table class="band-sm" width="100%" cellspacing="0" cellpadding="5">
+    <tr><td align="right"><img src="brand://logo/logo.png" width="22" height="22" alt="Orage AI Agency">&nbsp;&nbsp;<span class="wordmark-sm">ORAGE AI AGENCY</span></td></tr>
   </table>
 
   <p class="eyebrow">01 — Document type</p>

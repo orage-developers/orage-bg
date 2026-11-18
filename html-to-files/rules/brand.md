@@ -52,9 +52,11 @@ Tokens are in `brand/tokens.css`. Use no other colors.
 ## Emblem and header
 
 - Emblem `brand://logo/logo.png` on every file, unaltered.
-- Documents and data files use the compact header: a `#151515` band with a
-  22 px emblem and the "ORAGE AI AGENCY" wordmark (Bebas Neue 11pt, gold),
-  right-aligned. `comparison-report.html` keeps its larger band.
+- Headers have no background: the emblem and wordmark sit on the page.
+- Documents and data files use the compact header: a 22 px emblem and the
+  "ORAGE AI AGENCY" wordmark (Bebas Neue 11pt, gold), right-aligned.
+  `comparison-report.html` and `comparison-data.html` keep the larger,
+  left-aligned header.
 - Decks put the emblem on the cover and closing slides.
 
 ## Voice

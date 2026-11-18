@@ -16,7 +16,7 @@ import keeps a subset of HTML/CSS. For a faithful DOCX:
 - When a CSS rule and a `bgcolor` disagree, the PDF follows CSS. Put the
   color in an inline `style` too (as the comparison bars do).
 - No flex, grid or `position`: they are dropped. Lay out columns with tables
-  (like the header band in the templates).
+  (like the header in the templates).
 - Nested tables lose their column widths. Use single-row tables for bars.
 - No footer: `@page` exists only in the PDF. That is fine.
 - Google Docs lays out the DOCX with its own margins; a page more or less

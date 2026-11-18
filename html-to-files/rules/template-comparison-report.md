@@ -7,7 +7,7 @@
 
 ## Structure
 
-1. Header band with the emblem.
+1. Header with the emblem (no background).
 2. Eyebrow: `Comparison report · <channel> · <period A> vs <period B>`.
 3. H1 headline with the main % change ("Views up +42.0% in Q2"), then a
    lead line and a sample-data or source line.

@@ -9,7 +9,7 @@
 
 ## Structure
 
-1. Header band (PDF only).
+1. Header with the emblem, no background (PDF only).
 2. % change tiles, one per metric: label, % change, `before → after`
    (PDF only).
 3. Sheet `Comparison`: `Metric`, `A`, `B`, `Change`, `% change`. Raw numbers
