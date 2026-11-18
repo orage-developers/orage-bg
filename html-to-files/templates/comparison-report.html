@@ -42,6 +42,11 @@
   .band { width: 100%; border-collapse: collapse; }
   .band td { background: #151515; border: none; padding: 12pt 14pt; vertical-align: middle; }
   .wordmark { color: #B68039; font-size: 18pt; letter-spacing: 4px; }
+  /* Compact header: small emblem and wordmark, right-aligned. */
+  .band-sm { width: 100%; border-collapse: collapse; }
+  .band-sm td { background: #151515; border: none; padding: 5pt 10pt; text-align: right; vertical-align: middle; }
+  .band-sm img { vertical-align: middle; }
+  .wordmark-sm { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; color: #B68039; font-size: 11pt; letter-spacing: 3px; vertical-align: middle; }
 
   .data { width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; }
   .data th { background: #212121; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; }
@@ -60,6 +65,8 @@
   .arrow { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
   .sig-name { font-size: 16pt; letter-spacing: 2px; color: #E4AF7A; margin: 0; }
   .page-break { page-break-before: always; }
+  /* Keep headings with the content that follows them. */
+  h1, h2, h3, .eyebrow { page-break-after: avoid; break-after: avoid; }
 
   /* Comparison bars: single-row tables with % widths. Earlier period gray, later period gold. */
   .bar { border-collapse: collapse; margin: 2pt 0 0; }

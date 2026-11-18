@@ -23,6 +23,17 @@
   header img { width: 40px; height: 40px; }
   header span, caption { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; text-transform: uppercase; }
   header span { font-size: 18pt; letter-spacing: 4px; color: #B68039; }
+  /* Compact header: small emblem and wordmark, right-aligned. */
+  header.compact { justify-content: flex-end; gap: 6pt; padding: 5pt 10pt; }
+  header.compact img { width: 22px; height: 22px; }
+  header.compact span { font-size: 11pt; letter-spacing: 3px; }
+  /* % change tiles (PDF only). */
+  .tiles { display: flex; gap: 8pt; margin: 14pt 0 0; }
+  .tile { flex: 1; background: #212121; border: 1px solid #543C1C; border-radius: 6px; padding: 8pt 10pt; }
+  .tile .label { font-size: 8.5pt; color: #DEDEDE; margin: 0; }
+  .tile .pct { font-family: "Bebas Neue", Impact, sans-serif; font-size: 26pt; letter-spacing: 2px; color: #B68039; margin: 2pt 0; line-height: 1; }
+  .tile .from { font-size: 8.5pt; color: #DEDEDE; margin: 0; }
+  td.pct { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
   table { width: 100%; border-collapse: collapse; margin: 14pt 0; }
   caption { font-size: 18pt; letter-spacing: 3px; color: #E4AF7A; text-align: left; padding-bottom: 3pt; border-bottom: 2px solid #B68039; margin-bottom: 6pt; }
   th { background: #212121; color: #E4AF7A; font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; text-align: left; padding: 5pt 7pt; }
@@ -33,7 +44,7 @@
 </style>
 </head>
 <body>
-  <header><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
+  <header class="compact"><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
 
   <!-- Each top-level <table> = one XLSX sheet / one CSV file. <caption> titles it in the PDF. -->
   <table data-sheet="Sales">

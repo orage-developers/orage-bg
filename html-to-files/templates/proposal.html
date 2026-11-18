@@ -42,6 +42,11 @@
   .band { width: 100%; border-collapse: collapse; }
   .band td { background: #151515; border: none; padding: 12pt 14pt; vertical-align: middle; }
   .wordmark { color: #B68039; font-size: 18pt; letter-spacing: 4px; }
+  /* Compact header: small emblem and wordmark, right-aligned. */
+  .band-sm { width: 100%; border-collapse: collapse; }
+  .band-sm td { background: #151515; border: none; padding: 5pt 10pt; text-align: right; vertical-align: middle; }
+  .band-sm img { vertical-align: middle; }
+  .wordmark-sm { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; color: #B68039; font-size: 11pt; letter-spacing: 3px; vertical-align: middle; }
 
   .data { width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; }
   .data th { background: #212121; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; }
@@ -60,14 +65,22 @@
   .arrow { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
   .sig-name { font-size: 16pt; letter-spacing: 2px; color: #E4AF7A; margin: 0; }
   .page-break { page-break-before: always; }
+  /* Keep headings with the content that follows them. */
+  h1, h2, h3, .eyebrow { page-break-after: avoid; break-after: avoid; }
+  /* Compact type scale. */
+  body { font-size: 10pt; line-height: 1.55; }
+  h1 { font-size: 24pt; letter-spacing: 3px; margin: 14pt 0 4pt; }
+  h2 { font-size: 14pt; letter-spacing: 2px; margin: 16pt 0 6pt; }
+  h3 { font-size: 11.5pt; letter-spacing: 1.5px; margin: 6pt 0 2pt; }
+  .eyebrow { font-size: 8.5pt; letter-spacing: 3px; }
+  .lead { font-size: 10.5pt; }
+  .price { font-size: 20pt; }
+  .box td { padding: 8pt 10pt; }
 </style>
 </head>
 <body bgcolor="#010101" text="#FEFEFE">
-  <table class="band" width="100%" cellspacing="0" cellpadding="12" bgcolor="#151515">
-    <tr>
-      <td width="64" bgcolor="#151515"><img src="brand://logo/logo.png" width="56" height="56" alt="Orage AI Agency"></td>
-      <td bgcolor="#151515"><span class="wordmark">ORAGE AI AGENCY</span></td>
-    </tr>
+  <table class="band-sm" width="100%" cellspacing="0" cellpadding="5" bgcolor="#151515">
+    <tr><td align="right" bgcolor="#151515"><img src="brand://logo/logo.png" width="22" height="22" alt="Orage AI Agency">&nbsp;&nbsp;<span class="wordmark-sm">ORAGE AI AGENCY</span></td></tr>
   </table>
 
   <p class="eyebrow">Proposal · [Client]</p>

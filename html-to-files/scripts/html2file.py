@@ -317,6 +317,7 @@ class TableParser(HTMLParser):
                 "type": a.get("data-type", "auto"),
                 "value": a.get("data-value"),
                 "formula": a.get("data-formula"),
+                "format": a.get("data-format"),
                 "colspan": int(a.get("colspan", "1") or 1),
             }
         elif tag == "br" and self.cell is not None:
@@ -337,7 +338,7 @@ class TableParser(HTMLParser):
             self.row.append(self.cell)
             for _ in range(self.cell["colspan"] - 1):
                 self.row.append({"text": "", "header": self.cell["header"], "type": "text",
-                                 "value": None, "formula": None, "colspan": 1})
+                                 "value": None, "formula": None, "format": None, "colspan": 1})
             self.cell = None
         elif tag == "tr" and self.row is not None:
             self.tables[-1]["rows"].append(self.row)
@@ -381,6 +382,11 @@ def cell_value(cell):
         return "formula", cell["formula"].lstrip("=")
     raw = cell["value"] if cell["value"] is not None else cell["text"]
     kind = cell["type"]
+    if cell["format"] == "percent" and raw.endswith("%"):
+        try:  # "+42.0%" is stored as 0.42 and shown with the percent format
+            return "number", repr(float(raw.rstrip("%").replace(",", "")) / 100)
+        except ValueError:
+            pass
     if kind == "number" or (kind == "auto" and NUMBER_RE.match(raw)):
         cleaned = raw.replace(",", "").replace(" ", "")
         try:
@@ -412,6 +418,8 @@ def sheet_xml(table):
         for c_i, cell in enumerate(row):
             ref = f"{col_letter(c_i)}{r_i}"
             style = ' s="1"' if cell["header"] else ""  # body cells use xf 0 (dark)
+            if cell["format"] == "percent" and not cell["header"]:
+                style = ' s="3"'
             kind, val = cell_value(cell)
             longest = max((len(x) for x in str(val).split("\n")), default=0)
             widths[c_i] = min(max(widths[c_i], longest + 2), 60)
@@ -444,6 +452,7 @@ def sheet_xml(table):
 STYLES_XML = (
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
     '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+    '<numFmts count="1"><numFmt numFmtId="164" formatCode="+0.0%;-0.0%;0.0%"/></numFmts>'
     # Brand: Montserrat, near-white text on #010101; header row gold bold on #151515.
     '<fonts count="2"><font><sz val="10"/><color rgb="FFFEFEFE"/><name val="Montserrat"/></font>'
     '<font><b/><sz val="10"/><color rgb="FFB68039"/><name val="Montserrat"/></font></fonts>'
@@ -454,11 +463,14 @@ STYLES_XML = (
     '<borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border>'
     '<border><left/><right/><top/><bottom style="thin"><color rgb="FF543C1C"/></bottom><diagonal/></border></borders>'
     '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'
-    '<cellXfs count="3">'
+    '<cellXfs count="4">'
     '<xf numFmtId="0" fontId="0" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/>'
     '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/>'
     '<xf numFmtId="0" fontId="0" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1">'
-    '<alignment wrapText="1" vertical="top"/></xf></cellXfs>'
+    '<alignment wrapText="1" vertical="top"/></xf>'
+    # data-format="percent": signed percent with one decimal.
+    '<xf numFmtId="164" fontId="0" fillId="3" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1"/>'
+    '</cellXfs>'
     '</styleSheet>'
 )
 

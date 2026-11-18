@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Report title</title>
-<!-- Report: findings, metrics and recommendations. DOCX and PDF. -->
+<title>Daily report</title>
+<!-- Status report (daily or weekly): meta table, summary, completed, in progress, blockers, plan, metrics. DOCX and PDF. -->
 <style>
   /* ORAGE brand (docs and PDF): colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md.
      Hex colors only: the DOCX import does not read CSS variables. */
@@ -42,6 +42,11 @@
   .band { width: 100%; border-collapse: collapse; }
   .band td { background: #151515; border: none; padding: 12pt 14pt; vertical-align: middle; }
   .wordmark { color: #B68039; font-size: 18pt; letter-spacing: 4px; }
+  /* Compact header: small emblem and wordmark, right-aligned. */
+  .band-sm { width: 100%; border-collapse: collapse; }
+  .band-sm td { background: #151515; border: none; padding: 5pt 10pt; text-align: right; vertical-align: middle; }
+  .band-sm img { vertical-align: middle; }
+  .wordmark-sm { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; color: #B68039; font-size: 11pt; letter-spacing: 3px; vertical-align: middle; }
 
   .data { width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; }
   .data th { background: #212121; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; }
@@ -60,52 +65,62 @@
   .arrow { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
   .sig-name { font-size: 16pt; letter-spacing: 2px; color: #E4AF7A; margin: 0; }
   .page-break { page-break-before: always; }
+  /* Keep headings with the content that follows them. */
+  h1, h2, h3, .eyebrow { page-break-after: avoid; break-after: avoid; }
+  /* Compact type scale. */
+  body { font-size: 10pt; line-height: 1.55; }
+  h1 { font-size: 24pt; letter-spacing: 3px; margin: 14pt 0 4pt; }
+  h2 { font-size: 14pt; letter-spacing: 2px; margin: 16pt 0 6pt; }
+  h3 { font-size: 11.5pt; letter-spacing: 1.5px; margin: 6pt 0 2pt; }
+  .eyebrow { font-size: 8.5pt; letter-spacing: 3px; }
+  .lead { font-size: 10.5pt; }
+  .price { font-size: 20pt; }
+  .box td { padding: 8pt 10pt; }
 </style>
 </head>
 <body bgcolor="#010101" text="#FEFEFE">
-  <table class="band" width="100%" cellspacing="0" cellpadding="12" bgcolor="#151515">
-    <tr>
-      <td width="64" bgcolor="#151515"><img src="brand://logo/logo.png" width="56" height="56" alt="Orage AI Agency"></td>
-      <td bgcolor="#151515"><span class="wordmark">ORAGE AI AGENCY</span></td>
-    </tr>
+  <table class="band-sm" width="100%" cellspacing="0" cellpadding="5" bgcolor="#151515">
+    <tr><td align="right" bgcolor="#151515"><img src="brand://logo/logo.png" width="22" height="22" alt="Orage AI Agency">&nbsp;&nbsp;<span class="wordmark-sm">ORAGE AI AGENCY</span></td></tr>
   </table>
 
-  <p class="eyebrow">Report · [Month YYYY]</p>
-  <h1>[Report title]</h1>
-  <p class="lead">[One line with the main result for the reader.]</p>
-  <p class="muted">Prepared for [Client] by Orage AI Agency · [Date]</p>
-
-  <h2>Executive summary</h2>
-  <p>[Two or three sentences: what happened, what it means, what we recommend.]</p>
+  <h1>Daily report</h1>
   <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
-    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Metric</span></th><th bgcolor="#212121" align="right" class="num"><span class="th">Before</span></th><th bgcolor="#212121" align="right" class="num"><span class="th">After</span></th><th bgcolor="#212121" align="right" class="num"><span class="th">Change</span></th></tr></thead>
-    <tbody>
-      <tr><td bgcolor="#151515">[Metric]</td><td bgcolor="#151515" align="right" class="num">[0]</td><td bgcolor="#151515" align="right" class="num">[0]</td><td bgcolor="#151515" align="right" class="num">[+0%]</td></tr>
-      <tr><td bgcolor="#151515">[Metric]</td><td bgcolor="#151515" align="right" class="num">[0]</td><td bgcolor="#151515" align="right" class="num">[0]</td><td bgcolor="#151515" align="right" class="num">[+0%]</td></tr>
-      <tr><td bgcolor="#151515">[Metric]</td><td bgcolor="#151515" align="right" class="num">[0]</td><td bgcolor="#151515" align="right" class="num">[0]</td><td bgcolor="#151515" align="right" class="num">[+0%]</td></tr>
-    </tbody>
+    <tr><td bgcolor="#212121" width="20%"><span class="th">Date</span></td><td bgcolor="#151515" width="30%">[Month DD, YYYY]</td><td bgcolor="#212121" width="20%"><span class="th">Name / Role</span></td><td bgcolor="#151515" width="30%">[Name] / [Role]</td></tr>
+    <tr><td bgcolor="#212121" width="20%"><span class="th">Project / Department</span></td><td bgcolor="#151515" colspan="3">[Project]</td></tr>
   </table>
-  <p class="muted">Use only numbers you can source. Mark estimates as estimates.</p>
 
-  <h2>Findings</h2>
-  <h3>[Finding one]</h3>
-  <p>[What we saw and why it matters to the business.]</p>
-  <h3>[Finding two]</h3>
-  <p>[What we saw and why it matters to the business.]</p>
+  <h2>1. Executive summary</h2>
+  <p>[One or two sentences: the main result of the day.]</p>
 
-  <h2>Recommendations</h2>
+  <h2>2. Completed tasks</h2>
+  <ul>
+    <li>[Task done, stated as a result]</li>
+    <li>[Task done, stated as a result]</li>
+    <li>[Task done, stated as a result]</li>
+  </ul>
+
+  <h2>3. In progress / ongoing tasks</h2>
+  <ul>
+    <li>[Task] — Status: <strong>[planning / in progress / blocked]</strong></li>
+  </ul>
+
+  <h2>4. Roadblocks &amp; challenges</h2>
+  <ul>
+    <li>[Blocker and what is needed to clear it, or "None"]</li>
+  </ul>
+
+  <h2>5. Plan for tomorrow</h2>
   <ol>
-    <li><strong>[Action]</strong> — [expected result].</li>
-    <li><strong>[Action]</strong> — [expected result].</li>
-    <li><strong>[Action]</strong> — [expected result].</li>
+    <li>[First priority]</li>
+    <li>[Second priority]</li>
   </ol>
 
-  <h2>Next steps</h2>
+  <h2>6. Additional notes / metrics</h2>
   <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
-    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Step</span></th><th bgcolor="#212121" align="left"><span class="th">Owner</span></th><th bgcolor="#212121" align="left"><span class="th">Date</span></th></tr></thead>
+    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Metric / KPI</span></th><th bgcolor="#212121" align="left"><span class="th">Value</span></th><th bgcolor="#212121" align="left"><span class="th">Notes</span></th></tr></thead>
     <tbody>
-      <tr><td bgcolor="#151515">[Step]</td><td bgcolor="#151515">[Owner]</td><td bgcolor="#151515">[YYYY-MM-DD]</td></tr>
-      <tr><td bgcolor="#151515">[Step]</td><td bgcolor="#151515">[Owner]</td><td bgcolor="#151515">[YYYY-MM-DD]</td></tr>
+      <tr><td bgcolor="#151515">[Metric]</td><td bgcolor="#151515">[Value]</td><td bgcolor="#151515">[Note]</td></tr>
+      <tr><td bgcolor="#151515">[Metric]</td><td bgcolor="#151515">[Value]</td><td bgcolor="#151515">[Note]</td></tr>
     </tbody>
   </table>
 </body>
