@@ -13,4 +13,5 @@ One table, `data-sheet="Contacts"`: `Name`, `Company`, `Email`, `Phone`,
 ## Content
 
 - Phones, ZIP codes and IDs use `data-type="text"` to keep leading zeros.
-- Mark sample rows as sample data.
+- Mark sample data in the caption (`Contacts · [List] · Sample data`) and
+  use clearly fake details (`example.com` emails, `555` numbers).

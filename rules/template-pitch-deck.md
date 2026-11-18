@@ -17,5 +17,8 @@
 
 ## Content
 
+- For a shorter deck, keep the cover, what we build, the offer and the
+  closing slide. Drop the slides that would stay placeholders first.
+
 - Offers, prices and products only from the guidelines.
 - Use the three-card grid (`grid3`) for any side-by-side comparison.

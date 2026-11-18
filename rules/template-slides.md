@@ -10,6 +10,6 @@
 1. Cover (`slide cover`): emblem, eyebrow, H1, rule, lead line.
 2. Content slides: eyebrow `NN — <topic>`, H2, rule, then bullets, a big
    number with a card, or columns. Footer with the wordmark and the slide
-   number.
+   number. Cover and closing slides have no footer.
 3. Closing slide (`slide cover`): emblem, H2 with the next step and an
    arrow, lead line.

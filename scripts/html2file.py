@@ -186,6 +186,8 @@ GOOGLE_FONTS = {
     "Montserrat Medium": "Montserrat", "Montserrat SemiBold": "Montserrat",
     "Liberation Sans": "Montserrat", "Liberation Serif": "Montserrat",
     "Times New Roman": "Montserrat", "Arial": "Montserrat",
+    # LibreOffice list bullets; Montserrat has the bullet glyph.
+    "OpenSymbol": "Montserrat",
 }
 
 BODY_BGCOLOR_RE = re.compile(r'<body\b[^>]*\bbgcolor\s*=\s*["\']?#([0-9a-fA-F]{6})', re.I)

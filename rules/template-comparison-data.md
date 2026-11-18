@@ -5,7 +5,10 @@
 - **Use for**: the numbers behind a period vs period comparison.
 - **Also follow**: [comparisons.md](comparisons.md),
   [format-xlsx.md](format-xlsx.md).
-- **Length**: one landscape page in the PDF.
+- **Length**: one landscape page in the PDF. With more rows than the
+  sample, tighten the cells (`th, td { padding: 2pt 6pt; }`) and move notes
+  into HTML comments before cutting data. Two pages are acceptable only when
+  the data does not fit after that.
 
 ## Structure
 

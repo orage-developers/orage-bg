@@ -3,7 +3,9 @@
 - **File**: `templates/report.html`
 - **Formats**: DOCX, PDF
 - **Use for**: daily, weekly or project status reports.
-- **Length**: one page in the PDF for a daily report.
+- **Length**: one page in the PDF for a daily report; a weekly or project
+  report may run two. Add `style="page-break-inside: avoid"` to short tables
+  so they do not split across pages.
 
 ## Structure
 

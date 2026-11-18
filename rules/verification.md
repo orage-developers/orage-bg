@@ -23,8 +23,10 @@ overwrite the delivered PDF. Look at every page, not only the first, at
   Montserrat. Any other font means a glyph the brand fonts lack or a
   misspelled family.
 - Colors: `grep -ci '#000000' file.html` prints 0.
-- PPTX: the slide count equals the number of `.slide` sections:
-  `unzip -l file.pptx | grep -c 'ppt/slides/slide[0-9]*.xml'`.
+- PPTX: the slide count equals the number of slide sections:
+  `grep -c '<section class="slide' file.html` and
+  `unzip -l file.pptx | grep -c 'ppt/slides/slide[0-9]*.xml'` print the same
+  number.
 - XLSX: export every sheet to CSV (one file per sheet) and check values and
   computed formulas:
   ```bash
