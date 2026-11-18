@@ -1,32 +1,32 @@
-/* ORAGE AI AGENCY brand tokens. Source: BRAND.md (orage.agency site styles, 2026-11-13).
-   Paste into :root of every page, document, deck and email. Never add a color. */
+/* ORAGE AI AGENCY brand tokens. Source: BRAND-GUIDELINES.md (§4 typography, §5 color).
+   Dark mode for docs, slides, PDFs and web. Light mode for email only. Never add a color. */
 :root {
-  /* Primary */
-  --o-ink: #0A0A0A;          /* dark backgrounds, text on light */
-  --o-gold: #B68039;         /* the one accent: buttons, links, rules, key numbers */
-  --o-white: #FFFFFF;
+  /* Dark mode: docs, slides, PDFs */
+  --o-bg-primary: #000000;          /* main background */
+  --o-bg-secondary: #151515;        /* secondary background */
+  --o-bg-container: #212121;        /* cards, boxes */
+  --o-gold: #B68039;                /* anchor gold: CTAs and titles; visible on every artifact */
+  --o-copper: #E4AF7A;              /* headings and highlights */
+  --o-copper-alt: #E3C19E;          /* optional highlight variation */
+  --o-dark-accent: #543C1C;         /* icons and dividers */
+  --o-text-primary: #FFD69C;        /* main body text and labels; never pure white in dark mode */
+  --o-text-secondary: #FFE8C7;      /* secondary text */
+  --o-text-alt: #F5E5D7;            /* soft neutral tan */
+  --o-cream: #FCE8D4;               /* light accents */
 
-  /* Supporting */
-  --o-gold-light: #C8922A;   /* hover, gradient end */
-  --o-off-white: #FAFAFA;    /* text on ink */
-  --o-surface: #F5F5F5;      /* light sections */
-  --o-border: #E5E5E5;       /* lines on light */
-  --o-graphite: #262626;     /* cards and lines on dark */
-  --o-charcoal: #171717;     /* raised surfaces on dark */
-  --o-muted: #A1A1A1;        /* secondary text on dark */
-  --o-slate: #525252;        /* secondary text on light */
+  /* Light mode: email only */
+  --o-email-bg: #FFFFFF;
+  --o-email-body: #2C1A00;
+  --o-email-body-secondary: #3D2500;
+  --o-email-heading: #7A5A2E;
+  --o-email-eyebrow: #8C6830;
+  --o-email-card-border: #D4C4AE;
 
-  --o-gradient-gold: linear-gradient(135deg, #B68039 0%, #C8922A 100%);
-  --o-gradient-dark: radial-gradient(circle at 80% 20%, #262626 0%, #0A0A0A 70%);
-  --o-photo-overlay: rgba(10, 10, 10, 0.6);
-
-  /* Type */
-  --font-display: "Syne", Arial, "Helvetica Neue", sans-serif;      /* headings, uppercase */
-  --font-body: "Space Grotesk", Arial, "Helvetica Neue", sans-serif; /* body and UI */
-  --lh-heading: 1;
-  --lh-body: 1.5;
+  /* Type: two fonts only */
+  --font-display: 'Bebas Neue', Impact, 'Anton', 'Oswald', 'Arial Narrow', 'Helvetica Neue Condensed', sans-serif;
+  --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --lh-body: 1.65;
 }
 
-/* Google Fonts:
-   https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap
-   Local copies: fonts/Syne.ttf, fonts/SpaceGrotesk.ttf (OFL). Logos: logo/. */
+/* Local fonts: fonts/BebasNeue-Regular.ttf, fonts/Montserrat-{Medium,SemiBold,Bold}.ttf (OFL).
+   Logo: logo/logo.png (gold storm emblem, 700 x 700, transparent). */

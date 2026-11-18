@@ -4,84 +4,92 @@
 <meta charset="utf-8">
 <title>Título de la presentación</title>
 <style>
-  /* Marca ORAGE: ver brand/BRAND.md. Portada en Ink, contenido en blanco, oro solo para la cifra clave. */
-  @font-face { font-family: "Syne"; src: url("brand://fonts/Syne.ttf"); font-weight: 400 800; }
-  @font-face { font-family: "Space Grotesk"; src: url("brand://fonts/SpaceGrotesk.ttf"); font-weight: 300 700; }
+  /* Marca ORAGE, modo oscuro (slides): ver brand/BRAND-GUIDELINES.md. */
+  @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
+  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Medium.ttf"); font-weight: 500; }
+  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); font-weight: 600; }
+  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
   :root {
-    --o-ink: #0A0A0A; --o-gold: #B68039; --o-white: #FFFFFF; --o-off-white: #FAFAFA;
-    --o-border: #E5E5E5; --o-muted: #A1A1A1; --o-slate: #525252;
-    --font-display: "Syne", Arial, sans-serif; --font-body: "Space Grotesk", Arial, sans-serif;
+    --o-bg-primary: #000000; --o-bg-secondary: #151515; --o-bg-container: #212121;
+    --o-gold: #B68039; --o-copper: #E4AF7A; --o-dark-accent: #543C1C;
+    --o-text-primary: #FFD69C; --o-text-secondary: #FFE8C7;
+    --font-display: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+    --font-body: 'Montserrat', Helvetica, Arial, sans-serif;
   }
 
   /* 16:9. Cada <section class="slide"> es una página = una diapositiva. No cambiar. */
   @page { size: 13.333in 7.5in; margin: 0; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body { font-family: var(--font-body); color: var(--o-ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; background: var(--o-bg-primary); }
+  body { font-family: var(--font-body); font-weight: 500; color: var(--o-text-primary); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .slide {
     position: relative; width: 13.333in; height: 7.5in; padding: 0.8in 0.9in 0.9in;
     overflow: hidden; page-break-after: always; break-after: page;
-    display: flex; flex-direction: column; background: var(--o-white);
+    display: flex; flex-direction: column; background: var(--o-bg-primary);
   }
   .slide:last-child { page-break-after: auto; break-after: auto; }
-  .slide h1, .slide h2 { font-family: var(--font-display); text-transform: uppercase; line-height: 1; margin: 0; }
-  .slide h1 { font-size: 60pt; font-weight: 800; }
-  .slide h2 { font-size: 36pt; font-weight: 700; margin-bottom: 0.15in; }
-  .rule { width: 1.2in; height: 3px; background: var(--o-gold); margin: 0.2in 0 0.35in; }
-  .slide p, .slide li { font-size: 22pt; line-height: 1.4; }
+  /* Bebas Neue: solo peso 400, siempre mayúsculas y con espaciado. */
+  .slide h1, .slide h2, .eyebrow, .big { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; margin: 0; }
+  .slide h1 { font-size: 88pt; letter-spacing: 6px; line-height: 0.95; color: var(--o-gold); }
+  .slide h2 { font-size: 54pt; letter-spacing: 3px; line-height: 1; color: var(--o-copper); }
+  .eyebrow { font-size: 16pt; letter-spacing: 5px; color: var(--o-gold); margin-bottom: 0.15in; }
+  .rule { width: 1.2in; height: 2px; background: var(--o-gold); margin: 0.25in 0 0.35in; }
+  .slide p, .slide li { font-size: 22pt; line-height: 1.6; }
+  .lead { font-weight: 600; color: var(--o-text-secondary); }
   .slide ul { margin: 0; padding-left: 0.35in; }
-  .slide li { margin-bottom: 0.12in; }
+  .slide li { margin-bottom: 0.1in; }
   .slide li::marker { color: var(--o-gold); }
   .foot {
     position: absolute; left: 0.9in; right: 0.9in; bottom: 0.4in;
-    display: flex; justify-content: space-between; font-size: 10pt; color: var(--o-slate);
+    display: flex; justify-content: space-between;
+    font-family: var(--font-display); font-size: 13pt; letter-spacing: 3px; color: var(--o-gold);
   }
 
-  .ink { background: var(--o-ink); color: var(--o-off-white); justify-content: center; }
-  .ink .foot { color: var(--o-muted); }
-  .ink .sub { color: var(--o-muted); font-size: 20pt; margin: 0; }
-  .emblem { width: 1.3in; height: 1.3in; margin-bottom: 0.35in; }
-
-  .big { font-family: var(--font-display); font-size: 120pt; font-weight: 800; color: var(--o-gold); line-height: 1; }
-  .cols { display: flex; gap: 0.6in; }
+  .cover { background: var(--o-bg-secondary); justify-content: center; }
+  .emblem { width: 1.3in; height: 1.3in; margin-bottom: 0.3in; }
+  .card { background: var(--o-bg-container); border: 1px solid var(--o-dark-accent); border-radius: 12px; padding: 0.35in 0.4in; }
+  .big { font-size: 150pt; letter-spacing: 4px; color: var(--o-gold); line-height: 0.9; }
+  .cols { display: flex; gap: 0.6in; align-items: center; }
   .cols > div { flex: 1; }
 </style>
 </head>
 <body>
-  <section class="slide ink">
-    <img class="emblem" src="brand://logo/logo.png" alt="ORAGE AI AGENCY">
+  <section class="slide cover">
+    <img class="emblem" src="brand://logo/logo.png" alt="Orage AI Agency">
+    <p class="eyebrow">Orage AI Agency</p>
     <h1>Título de la<br>presentación</h1>
     <div class="rule"></div>
-    <p class="sub">Subtítulo · Fecha</p>
-    <div class="foot"><span>ORAGE AI AGENCY</span><span>orage.agency</span></div>
+    <p class="lead">Una línea con el resultado para el comprador.</p>
   </section>
 
   <section class="slide">
+    <p class="eyebrow">01 — Contexto</p>
     <h2>Puntos clave</h2>
     <div class="rule"></div>
     <ul>
       <li>Una idea por línea</li>
-      <li>Máximo 5–6 viñetas</li>
-      <li>Empiece por el resultado</li>
+      <li>Máximo 5 viñetas</li>
+      <li>Resultado primero, no la función</li>
     </ul>
-    <div class="foot"><span>ORAGE AI AGENCY</span><span>2</span></div>
+    <div class="foot"><span>Orage AI Agency</span><span>02</span></div>
   </section>
 
   <section class="slide">
+    <p class="eyebrow">02 — Resultado</p>
     <h2>La cifra que importa</h2>
     <div class="rule"></div>
     <div class="cols">
-      <div><div class="big">2X</div></div>
-      <div><p>Una frase que explica la cifra. Sin promesas: los resultados son afirmaciones, no garantías.</p></div>
+      <div><div class="big">3×</div></div>
+      <div class="card"><p>Una frase que explica la cifra. Solo cifras respaldadas por la fuente.</p></div>
     </div>
-    <div class="foot"><span>ORAGE AI AGENCY</span><span>3</span></div>
+    <div class="foot"><span>Orage AI Agency</span><span>03</span></div>
   </section>
 
-  <section class="slide ink">
-    <img class="emblem" src="brand://logo/logo.png" alt="ORAGE AI AGENCY">
-    <h2>ORAGE AI AGENCY</h2>
+  <section class="slide cover">
+    <img class="emblem" src="brand://logo/logo.png" alt="Orage AI Agency">
+    <h2>Siguiente paso →</h2>
     <div class="rule"></div>
-    <p class="sub">orage.agency</p>
+    <p class="lead">orage.agency</p>
   </section>
 </body>
 </html>

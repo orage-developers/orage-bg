@@ -47,7 +47,10 @@ SOFFICE_CANDIDATES = [
     "/Applications/LibreOffice.app/Contents/MacOS/soffice",
 ]
 BRAND_DIR = Path(__file__).resolve().parent.parent / "brand"
-BRAND_FONTS = {"Syne": "Syne.ttf", "Space Grotesk": "SpaceGrotesk.ttf"}
+BRAND_FONTS = {
+    "Bebas Neue": ["BebasNeue-Regular.ttf"],
+    "Montserrat": ["Montserrat-Medium.ttf", "Montserrat-SemiBold.ttf", "Montserrat-Bold.ttf"],
+}
 
 
 def fail(msg):
@@ -115,18 +118,18 @@ def prepared_source(src: Path, inline_images: bool):
 
 def ensure_brand_fonts():
     """Install the brand fonts for LibreOffice when the system lacks them."""
-    if not shutil.which("fc-list"):
-        if platform.system() == "Darwin":
-            target = Path.home() / "Library/Fonts"
-        else:
-            return
-        installed = ""
+    if platform.system() == "Darwin":
+        target = Path.home() / "Library/Fonts"
+    elif shutil.which("fc-list"):
+        target = Path.home() / ".local/share/fonts/orage-brand"
     else:
+        return
+    installed = ""
+    if shutil.which("fc-list"):
         installed = subprocess.run(["fc-list", ":", "family"], capture_output=True,
                                    text=True).stdout
-        target = Path.home() / ".local/share/fonts/orage-brand"
-    missing = [f for fam, f in BRAND_FONTS.items()
-               if fam not in installed and (BRAND_DIR / "fonts" / f).is_file()]
+    missing = [f for fam, files in BRAND_FONTS.items() if fam not in installed
+               for f in files if (BRAND_DIR / "fonts" / f).is_file()]
     if not missing:
         return
     target.mkdir(parents=True, exist_ok=True)
@@ -176,9 +179,36 @@ def soffice_convert(src: Path, out: Path, infilter: str, convert_to: str):
         shutil.move(str(produced[0]), out)
 
 
+BODY_BGCOLOR_RE = re.compile(r'<body\b[^>]*\bbgcolor\s*=\s*["\']?#([0-9a-fA-F]{6})', re.I)
+
+
+def set_docx_page_color(docx: Path, hex_color: str):
+    """Give every page of the DOCX a background color (LibreOffice drops body bgcolor)."""
+    tmp = docx.with_suffix(".tmp.docx")
+    with zipfile.ZipFile(docx) as zin, zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            data = zin.read(item.filename)
+            if item.filename == "word/document.xml":
+                text = re.sub(r"<w:background\b[^>]*/>", "", data.decode("utf-8"))
+                text = re.sub(r"(<w:document\b[^>]*>)",
+                              rf'\1<w:background w:color="{hex_color}"/>', text, count=1)
+                data = text.encode("utf-8")
+            elif item.filename == "word/settings.xml":
+                text = data.decode("utf-8")
+                if "displayBackgroundShape" not in text:
+                    text = re.sub(r"(<w:settings\b[^>]*>)", r"\1<w:displayBackgroundShape/>",
+                                  text, count=1)
+                data = text.encode("utf-8")
+            zout.writestr(item, data)
+    tmp.replace(docx)
+
+
 def to_docx(src, out, args):
     ensure_brand_fonts()
     soffice_convert(src, out, "HTML (StarWriter)", "docx:MS Word 2007 XML")
+    m = BODY_BGCOLOR_RE.search(src.read_text(encoding="utf-8"))
+    if m:
+        set_docx_page_color(out, m.group(1).upper())
 
 
 def to_pdf(src, out, args):
@@ -347,14 +377,16 @@ def sheet_xml(table):
 STYLES_XML = (
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
     '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
-    '<fonts count="2"><font><sz val="11"/><name val="Calibri"/></font>'
-    '<font><b/><sz val="11"/><name val="Calibri"/></font></fonts>'
-    '<fills count="2"><fill><patternFill patternType="none"/></fill>'
-    '<fill><patternFill patternType="gray125"/></fill></fills>'
+    # Brand: Montserrat body; header row in Copper (#E4AF7A) bold on #151515.
+    '<fonts count="2"><font><sz val="10"/><name val="Montserrat"/></font>'
+    '<font><b/><sz val="10"/><color rgb="FFE4AF7A"/><name val="Montserrat"/></font></fonts>'
+    '<fills count="3"><fill><patternFill patternType="none"/></fill>'
+    '<fill><patternFill patternType="gray125"/></fill>'
+    '<fill><patternFill patternType="solid"><fgColor rgb="FF151515"/></patternFill></fill></fills>'
     '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>'
     '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'
     '<cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>'
-    '<xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/>'
+    '<xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/>'
     '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">'
     '<alignment wrapText="1" vertical="top"/></xf></cellXfs>'
     '</styleSheet>'
