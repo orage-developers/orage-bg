@@ -1,73 +1,72 @@
 ---
 name: html-to-files
 description: >
-  Crea archivos DOCX, PPTX, PDF, XLSX y CSV siempre a partir de un HTML fuente,
-  con la marca de Orage AI Agency. Úsala cuando un agente deba entregar un
-  documento Word, una presentación PowerPoint, un PDF, una hoja de cálculo
-  Excel o un CSV, o convertir contenido a cualquiera de esos formatos. El agente
-  escribe primero un HTML con las brand guidelines (brand/BRAND-GUIDELINES.md)
-  y luego lo convierte con scripts/html2file.py. Nunca genera el binario
-  directamente.
+  Create DOCX, PPTX, PDF, XLSX and CSV files, always from an HTML source and
+  always in the Orage AI Agency brand. Use it whenever an agent must deliver a
+  Word document, a PowerPoint deck, a PDF, an Excel workbook or a CSV, or
+  convert content into any of those formats: reports, proposals, one-pagers,
+  letters, pitch decks, comparison reports (period vs period, e.g. TikTok views
+  Q1 vs Q2), trackers and lists. The agent picks a template, writes the HTML
+  following brand/BRAND-GUIDELINES.md, and converts it with
+  scripts/html2file.py. It never builds the binary directly.
 ---
 
-# HTML a archivos (DOCX, PPTX, PDF, XLSX, CSV)
+# HTML to files (DOCX, PPTX, PDF, XLSX, CSV)
 
-Dos reglas, sin excepción:
+Two rules, no exceptions:
 
-1. **Todo archivo nace de un HTML.** El HTML es la fuente de verdad. Para
-   cambiar el archivo, edita el HTML y vuelve a convertir. No uses
-   python-docx, python-pptx, openpyxl, reportlab ni editores de binarios para
-   crear el contenido.
-2. **Todo archivo sigue las brand guidelines de Orage AI Agency**
-   (`brand/BRAND-GUIDELINES.md`), salvo que la petición nombre otra marca de
-   forma explícita.
+1. **Every file starts as HTML.** The HTML is the source of truth. To change
+   the file, edit the HTML and convert again. Do not use python-docx,
+   python-pptx, openpyxl, reportlab or binary editors to create content.
+2. **Every file follows the Orage AI Agency brand guidelines**
+   (`brand/BRAND-GUIDELINES.md`), unless the request explicitly names another
+   brand.
 
-`<skill-dir>` en este documento es la carpeta que contiene este `SKILL.md`.
+In this document, `<skill-dir>` is the folder that contains this `SKILL.md`.
 
-## Brand guidelines (obligatorio)
+## Brand guidelines (required)
 
-Antes de escribir el HTML, lee `brand/BRAND-GUIDELINES.md` completo. Toma de
-ahí la voz, los colores, la tipografía y los hechos de la empresa (oferta,
-precios, productos, ubicación). Nunca inventes clientes, resultados, cifras,
-precios ni datos de contacto que no estén en ese archivo.
+Before you write the HTML, read `brand/BRAND-GUIDELINES.md` in full. Take
+the voice, colors, typography and company facts (offer, prices, products,
+location) from it. Never invent clients, results, numbers, prices or contact
+details that are not in that file. Mark sample data as sample data.
 
-Las plantillas de `templates/` ya aplican la marca. Resumen de lo que todo
-archivo cumple:
+The templates in `templates/` already apply the brand. Every file meets
+these rules:
 
-- **Modo oscuro** en documentos, PDF y presentaciones: fondo `#000000`,
-  superficies `#151515` y `#212121`, texto tan `#FFD69C` / `#FFE8C7`.
-  Nunca blanco puro en modo oscuro. (El modo claro es solo para email, que
-  esta skill no produce.)
-- **Oro ancla `#B68039`** visible en cada pieza (títulos, reglas, cifra
-  clave). Encabezados y énfasis en cobre `#E4AF7A`. Divisores e iconos en
-  `#543C1C`. Ningún otro color: tokens en `brand/tokens.css`.
-- **Dos fuentes, nunca una tercera**: Bebas Neue (solo peso 400, siempre
-  MAYÚSCULAS y con letter-spacing) para títulos, eyebrows, precios y
-  botones; Montserrat (500 texto, 600 entradilla, 700 énfasis) en
-  sentence case para el resto.
-- **Un family por peso**: Word y LibreOffice solo distinguen normal y bold.
-  Pide Medium y SemiBold por nombre con `font-weight: normal`:
-  `"Montserrat Medium"` (texto), `"Montserrat SemiBold"` (entradilla) y
-  `"Montserrat"` con `font-weight: 700` (énfasis). Las plantillas ya
-  declaran los `@font-face`. Nunca uses `font-weight: 500` o `600`: en
-  DOCX salen en Bold.
-- Bebas Neue no tiene `→` ni `×`. Escribe `3X` en vez de `3×` y pon la
-  flecha en Montserrat: `<span class="arrow">→</span>`. Si no, aparece una
-  tercera fuente de reserva.
-- **Emblema** `brand://logo/logo.png` en cada pieza, sin alterar.
-- **Voz**: confiada, directa, premium, orientada a la acción. Resultado
-  primero, frases cortas, números en vez de adjetivos, "nosotros" para la
-  empresa y "usted" para el comprador. Sin palabras hype
-  ("revolucionario", "de vanguardia", "game-changing").
-- Sin emojis en títulos, botones ni etiquetas; `→` es el único glifo
-  permitido. Sin comillas para enfatizar: usa negrita o oro.
-- Pie de documentos PDF: "© Orage AI Agency · Edmond, Oklahoma ·
-  orage.agency" (ya está en las plantillas).
+- **Dark mode** for documents, PDFs and decks: background `#000000`,
+  surfaces `#151515` and `#212121`, tan text `#FFD69C` / `#FFE8C7`. Never
+  pure white in dark mode. (Light mode is for email only, which this skill
+  does not produce.)
+- **Anchor gold `#B68039`** is visible on every piece (titles, rules, the key
+  number). Headings and emphasis in copper `#E4AF7A`. Dividers and icons in
+  `#543C1C`. No other colors: tokens are in `brand/tokens.css`.
+- **Two fonts, never a third**: Bebas Neue (weight 400 only, always
+  UPPERCASE and letter-spaced) for headings, eyebrows, prices and buttons;
+  Montserrat (500 body, 600 lead, 700 emphasis) in sentence case for
+  everything else.
+- **One family per weight**: Word and LibreOffice only know normal and bold.
+  Request Medium and SemiBold by name with `font-weight: normal`:
+  `"Montserrat Medium"` (body), `"Montserrat SemiBold"` (lead) and
+  `"Montserrat"` with `font-weight: 700` (emphasis). The templates already
+  declare the `@font-face` rules. Never use `font-weight: 500` or `600`: in
+  DOCX they come out bold.
+- Bebas Neue has no `→` or `×`. Write `3X`, not `3×`, in Bebas text, and put
+  the arrow in Montserrat: `<span class="arrow">→</span>`. Otherwise a third
+  fallback font appears.
+- **Emblem** `brand://logo/logo.png` on every piece, unaltered.
+- **Voice**: confident, direct, premium, action-led. Result first, short
+  sentences, numbers over adjectives, "we" for Orage and "you" for the buyer.
+  No hype words ("revolutionary", "cutting-edge", "game-changing").
+- No emoji in headings, buttons or labels; `→` is the only allowed glyph. No
+  quotation marks for emphasis: use bold or gold.
+- PDF document footer: "© Orage AI Agency · Edmond, Oklahoma ·
+  orage.agency" (already in the templates).
 
-### URLs `brand://`
+### `brand://` URLs
 
-En el HTML, `brand://<ruta>` apunta a la carpeta `brand/` de esta skill. El
-script la resuelve en cada conversión. Ejemplos:
+In the HTML, `brand://<path>` points to this skill's `brand/` folder. The
+script resolves it on every conversion. Examples:
 
 ```html
 <img src="brand://logo/logo.png" width="56" alt="Orage AI Agency">
@@ -76,184 +75,240 @@ script la resuelve en cada conversión. Ejemplos:
 </style>
 ```
 
-Para DOCX el script incrusta las imágenes locales como `data:` URI. Para
-DOCX y PPTX instala las fuentes de marca en la carpeta de fuentes del usuario
-(`~/.local/share/fonts/orage-brand` en Linux, `~/Library/Fonts` en macOS)
-si faltan, para que LibreOffice las use.
+For DOCX the script embeds local images as `data:` URIs. For DOCX and PPTX
+it installs the brand fonts in the user font folder
+(`~/.local/share/fonts/orage-brand` on Linux, `~/Library/Fonts` on macOS)
+when they are missing, so LibreOffice can use them.
 
-`brand/` contiene `BRAND-GUIDELINES.md`, `tokens.css`, `fonts/` (Bebas Neue,
-Montserrat Medium/SemiBold/Bold, licencias OFL) y `logo/logo.png`.
-`brand/BRAND-GUIDELINES.md` es copia de `BRAND-GUIDELINES.md` en la raíz del
-repositorio: si cambia la raíz, actualiza la copia.
+`brand/` holds `BRAND-GUIDELINES.md`, `tokens.css`, `fonts/` (Bebas Neue,
+Montserrat Medium/SemiBold/Bold, OFL licenses) and `logo/logo.png`.
+`brand/BRAND-GUIDELINES.md` is a copy of `BRAND-GUIDELINES.md` at the
+repository root: when the root file changes, update the copy.
 
-## Flujo
+## Templates
 
-1. Lee `brand/BRAND-GUIDELINES.md`.
-2. Copia la plantilla del formato junto al entregable:
+Pick the closest template. Each one is a complete, branded HTML page with
+sample content in `[brackets]` or marked as sample data.
+
+| Template | Use for | Convert to |
+|---|---|---|
+| `document.html` | Any document without a closer template | DOCX, PDF |
+| `report.html` | Report: summary, metrics table, findings, recommendations, next steps | DOCX, PDF |
+| `comparison-report.html` | Period vs period report (e.g. TikTok views Q1 vs Q2): KPI tiles, bar charts, comparison table, monthly trend, drivers | DOCX, PDF |
+| `proposal.html` | Client proposal: problem, products, Orage 90 price box, timeline, CTA | DOCX, PDF |
+| `one-pager.html` | One-page overview: positioning, products, offer ladder, CTA (one page in PDF) | PDF, DOCX |
+| `letter.html` | Letter: date, recipient, subject, body, signature | DOCX, PDF |
+| `slides.html` | Any deck without a closer template: cover, bullets, big number, close | PPTX, PDF |
+| `pitch-deck.html` | Sales deck: problem, products, offer tiers side by side, trickle-down, CTA | PPTX, PDF |
+| `comparison-deck.html` | Period vs period deck: headline change, monthly bars, per-metric bars, full table, drivers | PPTX, PDF |
+| `data.html` | Any data without a closer template: two sheets, types, formulas, total row | XLSX, CSV, PDF |
+| `comparison-data.html` | Period vs period numbers: change and % change formulas, monthly sheet with quarter totals | XLSX, CSV, PDF |
+| `tracker.html` | Project tracker: tasks, status, done flag, summary sheet | XLSX, PDF |
+| `contact-list.html` | Contact or lead list, one table | CSV, XLSX, PDF |
+
+You may add CSS rules to a template's `<style>` block for new components.
+Keep the existing rules, the fonts and the header with the emblem.
+
+### Comparison reports
+
+Use the `comparison-*` templates whenever the request compares two periods,
+two channels or two groups (Q1 vs Q2, this month vs last month, TikTok vs
+Instagram).
+
+- The earlier or baseline series is light tan `#E3C19E`; the later or main
+  series is gold `#B68039`. Keep that order in every chart, legend and table.
+- Every chart has a legend and prints its values next to the bars, and a
+  table shows the same numbers. Color is never the only way to read a
+  value.
+- One scale per chart. When metrics have different units (views, seconds,
+  posts), give each metric its own pair of bars scaled to its own maximum,
+  and say so ("Each metric uses its own scale"). Never two y-axes.
+- Bar widths: `value / max * width`. In documents each bar is one
+  single-row table (DOCX keeps those widths). In decks bars are `<div>`s
+  with `%` heights or widths.
+- Change columns: absolute change (`+170,000`) and % change (`+42.0%`), both
+  computed from the same numbers as the table. In XLSX use formulas.
+- Headline = the main change in one line ("Views up +42.0% in Q2").
+
+## Workflow
+
+1. Read `brand/BRAND-GUIDELINES.md`.
+2. Copy the template next to the deliverable:
    ```bash
-   cp <skill-dir>/templates/document.html <salida>/informe.html
+   cp <skill-dir>/templates/report.html <out>/report.html
    ```
-3. Escribe el contenido en ese HTML. Cambia el `<title>`. Conserva el
-   bloque `<style>` y la cabecera con el emblema. Respeta las reglas del
-   formato (abajo). `text-transform: uppercase` funciona en todos los
-   formatos.
-4. Convierte:
+3. Write the content in that HTML. Change the `<title>`. Keep the `<style>`
+   block and the header with the emblem. Follow the format rules below.
+   `text-transform: uppercase` works in every format.
+4. Convert:
    ```bash
-   python3 <skill-dir>/scripts/html2file.py <salida>/informe.html --to docx
+   python3 <skill-dir>/scripts/html2file.py <out>/report.html --to docx
    ```
-   Sin `-o`, la salida es el HTML con la nueva extensión
-   (`<salida>/informe.docx`).
-5. Verifica el resultado (sección "Verificación").
-6. Entrega el archivo y conserva el HTML junto a él.
+   Without `-o`, the output is the HTML path with the new extension
+   (`<out>/report.docx`).
+5. Verify the result (see "Verification").
+6. Deliver the file and keep the HTML next to it.
 
-Si piden también el PDF de un DOCX, PPTX, XLSX o CSV, conviértelo desde el
-**mismo HTML** con `--to pdf`. Queda como `<nombre>.pdf` al lado del otro
-archivo. Nunca conviertas el binario a PDF para entregarlo: la fuente siempre
-es el HTML.
+When a PDF of a DOCX, PPTX, XLSX or CSV is also requested, convert it from
+the **same HTML** with `--to pdf`. It lands as `<name>.pdf` next to the other
+file. Never convert the binary to PDF for delivery: the source is always the
+HTML.
 
-| Formato | Plantilla | Motor | Requisitos |
-|---|---|---|---|
-| PDF | la del formato hermano, o `document.html` | Chrome headless (`--print-to-pdf`) | Chrome o Chromium |
-| DOCX | `templates/document.html` | LibreOffice Writer (import HTML) | `soffice` |
-| PPTX | `templates/slides.html` | Chrome a PDF, luego LibreOffice Impress (import PDF) | Chrome + `soffice` |
-| XLSX | `templates/data.html` | Escritor propio en stdlib | Python 3 |
-| CSV | `templates/data.html` | `csv` de stdlib | Python 3 |
+| Format | Engine | Requires |
+|---|---|---|
+| PDF | Headless Chrome (`--print-to-pdf`) | Chrome or Chromium |
+| DOCX | LibreOffice Writer (HTML import) | `soffice` |
+| PPTX | Chrome to PDF, then LibreOffice Impress (PDF import) | Chrome + `soffice` |
+| XLSX | Built-in stdlib writer | Python 3 |
+| CSV | stdlib `csv` | Python 3 |
 
-Variables opcionales: `CHROME_BIN`, `SOFFICE_BIN` (rutas a los binarios),
-`CHROME_NO_SANDBOX=1` (contenedores sin sandbox).
+Optional variables: `CHROME_BIN`, `SOFFICE_BIN` (binary paths),
+`CHROME_NO_SANDBOX=1` (containers without a sandbox).
 
-## Opciones del script
+## Script options
 
 ```
 html2file.py INPUT.html --to pdf|docx|pptx|xlsx|csv [-o OUTPUT]
-  --wait MS        tiempo para fuentes/JS en Chrome (por defecto 3000)
-  --table N|NAME   csv: exporta solo esa tabla (índice desde 1 o nombre de hoja)
-  --delimiter ;    csv: separador (por defecto ,)
-  --bom            csv: añade BOM UTF-8 para que Excel detecte acentos
+  --wait MS        time Chrome waits for fonts/JS (default 3000)
+  --table N|NAME   csv: export only this table (1-based index or sheet name)
+  --delimiter ;    csv: field delimiter (default ,)
+  --bom            csv: write a UTF-8 BOM so Excel detects UTF-8
 ```
 
-El script imprime la ruta de cada archivo creado. Sale con código distinto
-de 0 y un mensaje `html2file: error:` si algo falla.
+The script prints the path of each file it creates. It exits non-zero with
+an `html2file: error:` message when something fails.
 
-## Reglas por formato
+## Format rules
 
 ### PDF
 
-- Tamaño y fondo de página con `@page { size: Letter; margin: …;
-  background: #000000; }`. El fondo de `@page` cubre también los márgenes.
-- Pie repetido: `@page { @bottom-center { content: "…"; } }`.
-- Salto de página: `page-break-before: always` en el elemento.
-- Chrome renderiza todo el CSS moderno (flex, grid, fuentes web, SVG).
+- Page size and background: `@page { size: Letter; margin: …;
+  background: #000000; }`. The `@page` background also covers the margins.
+- Repeating footer: `@page { @bottom-center { content: "…"; } }`. Use
+  `"Montserrat Medium"` there: Chrome only loads a font for a margin box when
+  the page body also uses it.
+- Page break: `page-break-before: always` on the element.
+- Chrome renders all modern CSS (flex, grid, web fonts, SVG).
 
 ### DOCX
 
-LibreOffice importa un subconjunto de HTML/CSS. Para un DOCX fiel:
+LibreOffice imports a subset of HTML/CSS. For a faithful DOCX:
 
-- Estructura semántica: `h1`–`h3`, `p`, `ul`/`ol`, `table`, `strong`, `em`,
-  `a`, `img`. Los encabezados se vuelven estilos de Word reales.
-- Fondo de página: `<body bgcolor="#000000">`. El script lo aplica como
-  color de página del DOCX.
-- Declara la fuente y el color en cada selector (`body, p, li, td, th,
-  span`). El import no hereda de `body`.
-- Colores en hex, no `var(--o-…)`: el import no lee variables CSS.
-- Tablas: atributos `border="1" cellspacing="0" cellpadding="6"
-  width="100%"`. Fondo de celda con `bgcolor` y alineación con `align`. El
-  color de texto en `th` se pierde: envuélvelo en `<span class="th">`.
-- Sin flex, grid ni `position`: se pierden. Maqueta columnas con tablas
-  (como la banda de cabecera de la plantilla).
-- El DOCX no tiene pie de página: `@page` solo existe en el PDF.
-- La paginación del DOCX difiere del PDF: LibreOffice ocupa más alto que
-  Chrome. Si piden un número de páginas, cuenta las páginas del DOCX
-  (Verificación) y recorta texto o tamaños hasta cumplirlo.
-- Imágenes: rutas relativas al HTML, `brand://` o `data:` URI, con `width`
-  explícito.
+- Semantic structure: `h1`–`h3`, `p`, `ul`/`ol`, `table`, `strong`, `em`,
+  `a`, `img`. Headings become real Word heading styles.
+- Page background: `<body bgcolor="#000000">`. The script applies it as the
+  DOCX page color.
+- Declare font and color on every selector (`body, p, li, td, th, span`).
+  The import does not inherit from `body`.
+- Hex colors, not `var(--o-…)`: the import does not read CSS variables.
+- Tables: attributes `border="1" cellspacing="0" cellpadding="6"
+  width="100%"`. Cell fill with `bgcolor` and alignment with `align`. The
+  `th` text color is lost: wrap it in `<span class="th">`.
+- When a CSS rule and a `bgcolor` disagree, the PDF follows CSS. Put the
+  color in an inline `style` too (as the comparison bars do).
+- No flex, grid or `position`: they are dropped. Lay out columns with tables
+  (like the header band in the templates).
+- Nested tables lose their column widths. Use single-row tables for bars.
+- The DOCX has no footer: `@page` exists only in the PDF.
+- DOCX pagination differs from the PDF: LibreOffice uses more height than
+  Chrome and ignores `@page` margins. When a page count is requested, count
+  the DOCX pages (Verification) and trim text or sizes until it fits.
+- Images: paths relative to the HTML, `brand://` or `data:` URIs, with an
+  explicit `width`.
 
 ### PPTX
 
-- Cada `<section class="slide">` es una diapositiva de 13.333 × 7.5 in (16:9).
-- No cambies `@page` ni el tamaño de `.slide`. El contenido que desborde se
-  corta (`overflow: hidden`).
-- Todo CSS de Chrome vale (flex, grid, fuentes web, SVG).
-- Portada y cierre con clase `cover` y emblema; contenido sobre negro.
-- El PPTX tiene texto y formas editables, colocados de forma absoluta. Para
-  cambiar el diseño, edita el HTML y reconvierte.
-- El script corrige el PPTX tras el import: nombres de fuente reales y
-  letter-spacing de Bebas Neue. El espaciado del PPTX es aproximado; el
-  PDF del mismo HTML es la referencia exacta.
-- Tamaño de texto que cabe: título 54–88pt, texto 20–24pt, máximo 5
-  viñetas o unas 40 palabras por diapositiva.
+- Each `<section class="slide">` is one 13.333 × 7.5 in slide (16:9).
+- Do not change `@page` or the `.slide` size. Overflowing content is cut
+  (`overflow: hidden`).
+- All Chrome CSS works (flex, grid, web fonts, SVG).
+- Cover and closing slides use class `cover` and the emblem; content slides
+  sit on black.
+- The PPTX has editable text and shapes, placed absolutely. To change the
+  design, edit the HTML and convert again.
+- After the import the script restores real font names and Bebas Neue
+  letter-spacing. PPTX spacing is approximate; the PDF of the same HTML is
+  the exact reference.
+- Text that fits: titles 54–88pt, body 20–24pt, card text 17pt. At most 5
+  bullets or about 40 words of body text per slide, cards included.
 
 ### XLSX
 
-- Cada `<table>` de nivel superior es una hoja. Nombre de hoja:
-  `data-sheet="Nombre"`, si no, el `<caption>`, si no, `Sheet1`, `Sheet2`…
-- El script aplica el estilo de marca: Montserrat en todas las celdas y
-  `<th>` en Montserrat Bold cobre sobre `#151515`. El CSS del HTML no
-  afecta al XLSX. Si la primera fila es de `<th>`, queda fija.
-- Tipos: números como `12` o `19.90` se guardan como número. Fuerza texto
-  con `data-type="text"` (códigos con ceros a la izquierda, fechas ISO,
-  teléfonos). Fuerza número con `data-type="number"`. Booleano:
+- Each top-level `<table>` is one sheet. Sheet name: `data-sheet="Name"`,
+  else the `<caption>`, else `Sheet1`, `Sheet2`…
+- The script applies the brand style: Montserrat in every cell and `<th>`
+  in Montserrat Bold copper on `#151515`. The HTML's CSS does not affect the
+  XLSX. When the first row is all `<th>`, it is frozen.
+- Types: numbers like `12` or `19.90` are stored as numbers. Write raw
+  numbers without thousands separators (`405000`, not `405,000`). Force text
+  with `data-type="text"` (codes with leading zeros, ISO dates, phone
+  numbers). Force a number with `data-type="number"`. Boolean:
   `data-type="bool"`.
-- Fórmulas: `<td data-formula="=SUM(B2:B3)">17</td>`. Excel recalcula al
-  abrir. Pon el valor calculado como texto de la celda para que el PDF y
-  el CSV también lo muestren.
-- Valor distinto del texto visible: `data-value="1234.5"`.
-- `colspan` se respeta rellenando celdas vacías. `rowspan` no se admite:
-  repite el valor en cada fila.
-- `<br>` dentro de una celda crea salto de línea.
-- El contenido fuera de `<table>` (cabecera, notas `.note`) solo aparece en
-  el PDF.
+- Formulas: `<td data-formula="=SUM(B2:B3)">17</td>`. Excel recalculates on
+  open. Put the computed value as the cell text so the PDF and CSV show it
+  too. Cross-sheet references use the sheet name: `=SUM(Tracker!F2:F7)`.
+- A value different from the visible text: `data-value="1234.5"`.
+- `colspan` is kept by padding empty cells. `rowspan` is not supported:
+  repeat the value on each row.
+- `<br>` inside a cell makes a line break.
+- Content outside `<table>` (header, `.note` paragraphs) appears only in the
+  PDF.
 
 ### CSV
 
-- Misma fuente que XLSX (`templates/data.html`).
-- Una tabla: un archivo. Varias tablas: un archivo por tabla con sufijo
-  `-<hoja>`, salvo que elijas una con `--table`.
-- Se exporta `data-value` si existe, si no, el texto visible. Las fórmulas
-  no se exportan: el texto de la celda debe llevar el valor.
-- Por defecto: UTF-8, separador `,`. Solo si el destino es Excel en
-  español, usa `--delimiter ";" --bom`.
+- Same source as XLSX (`data.html`, `contact-list.html`, …).
+- One table: one file. Several tables: one file per table with a `-<sheet>`
+  suffix, unless you pick one with `--table`.
+- Exports `data-value` when present, else the visible text. Formulas are not
+  exported: the cell text must hold the value.
+- Default: UTF-8, `,` delimiter. Only when the target is Excel with a
+  `;` locale (e.g. Spanish), use `--delimiter ";" --bom`.
 
-## Verificación
+## Verification
 
-Usa un directorio de trabajo temporal propio (`$CHECK`), por ejemplo el
-scratchpad de la sesión o `mktemp -d`. Nunca uses la carpeta de salida: el
-PDF de revisión sobrescribiría el PDF entregado. Revisa todas las páginas,
-no solo la primera (ajusta `-l`). Comprueba siempre:
+Use your own temporary check folder (`$CHECK`), such as the session
+scratchpad or `mktemp -d`. Never use the output folder: the review PDF would
+overwrite the delivered PDF. Look at every page, not only the first (set
+`-l`), at 70 dpi or more. Always check:
 
-- PDF: `head -c 4 archivo.pdf` imprime `%PDF`. Rasteriza y mira las
-  páginas:
+- PDF: `head -c 4 file.pdf` prints `%PDF`. Rasterize and look at the pages:
   ```bash
-  pdfinfo archivo.pdf | grep Pages
-  pdftoppm -r 40 -png -f 1 -l 2 archivo.pdf "$CHECK/p"
+  pdfinfo file.pdf | grep Pages
+  pdftoppm -r 70 -png file.pdf "$CHECK/p"
   ```
-- DOCX y PPTX: conviértelos a PDF solo para revisarlos y mira las páginas:
+- DOCX and PPTX: convert them to PDF for review only and look at the pages:
   ```bash
-  soffice --headless --convert-to pdf --outdir "$CHECK" archivo.docx
-  pdfinfo "$CHECK/archivo.pdf" | grep Pages
-  pdftoppm -r 40 -png -f 1 -l 2 "$CHECK/archivo.pdf" "$CHECK/p"
+  soffice --headless --convert-to pdf --outdir "$CHECK" file.docx
+  pdfinfo "$CHECK/file.pdf" | grep Pages
+  pdftoppm -r 70 -png "$CHECK/file.pdf" "$CHECK/p"
   ```
-- Fuentes: en cada PDF (entregado o de revisión), `pdffonts` solo debe
-  listar BebasNeue y Montserrat (más OpenSymbol para viñetas de DOCX).
-  Cualquier otra fuente es un glifo sin cobertura o un nombre mal escrito.
-- PPTX: el número de diapositivas debe igualar el número de `.slide`:
-  `unzip -l archivo.pptx | grep -c 'ppt/slides/slide[0-9]*.xml'`.
-- XLSX: exporta todas las hojas a CSV (una por hoja) y revisa valores y
-  fórmulas calculadas:
+- Fonts: in every PDF (delivered or review), `pdffonts` lists only
+  BebasNeue and Montserrat (plus OpenSymbol for DOCX bullets). Any other
+  font means a glyph the brand fonts lack or a misspelled family.
+- PPTX: the slide count equals the number of `.slide` sections:
+  `unzip -l file.pptx | grep -c 'ppt/slides/slide[0-9]*.xml'`.
+- XLSX: export every sheet to CSV (one file per sheet) and check values and
+  computed formulas:
   ```bash
   soffice --headless --convert-to 'csv:Text - txt - csv (StarCalc):44,34,76,1,,0,false,true,false,false,false,-1' \
-    --outdir "$CHECK" archivo.xlsx
+    --outdir "$CHECK" file.xlsx
   ```
-- CSV: `head` del archivo; revisa acentos y separador.
+- CSV: `head` the file; check accents and the delimiter.
+- Comparison reports: recompute one change and one % change by hand and
+  match them against the table, the chart labels and the headline.
 
-## Errores comunes
+## Common errors
 
-- `LibreOffice produced no output`: el HTML no existe o tiene un error de
-  codificación. Guarda siempre en UTF-8 con `<meta charset="utf-8">`.
-- `Chrome/Chromium not found`: instala Chrome o define `CHROME_BIN`.
-- Fuentes distintas en DOCX: la fuente no se declaró en cada selector.
-- Texto en Bold en DOCX: se usó `font-weight: 500/600` en vez del family
-  por peso.
-- Página blanca en DOCX: falta `bgcolor` en `<body>`.
-- Diapositivas de más en PPTX: algún `.slide` desborda o hay contenido
-  fuera de las secciones.
+- `LibreOffice produced no output`: the HTML is missing or has an encoding
+  error. Always save UTF-8 with `<meta charset="utf-8">`.
+- `Chrome/Chromium not found`: install Chrome or set `CHROME_BIN`.
+- Wrong fonts in DOCX: the font was not declared on every selector.
+- Bold body text in DOCX: `font-weight: 500/600` was used instead of the
+  per-weight family.
+- LiberationSans or another extra font in `pdffonts`: a `→`/`×` in Bebas
+  Neue, or a margin-box footer using a font the body does not use.
+- White page in DOCX: `bgcolor` is missing on `<body>`.
+- Bars without color in the PDF: a CSS rule overrides `bgcolor`; add an
+  inline `style="background:…"`.
+- Extra slides in PPTX: a `.slide` overflows or content sits outside the
+  sections.

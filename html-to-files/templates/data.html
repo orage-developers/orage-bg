@@ -1,17 +1,21 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Datos</title><!-- Cambie el título: es el nombre del PDF en el visor. -->
+<title>Data</title>
+<!-- Blank data starter: two sheets, number/text types, formulas, total row. XLSX, CSV and PDF. -->
 <style>
-  /* El estilo solo afecta al PDF de este HTML. XLSX y CSV leen las tablas.
-     Marca ORAGE, modo oscuro: ver brand/BRAND-GUIDELINES.md. */
+  /* Styling only affects the PDF of this HTML. XLSX and CSV read the tables.
+     ORAGE brand, dark mode: see brand/BRAND-GUIDELINES.md. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
+  /* One family per weight: Word and LibreOffice only know normal and bold, so
+     Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
   @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
+  @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
   @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
   @page {
     size: Letter landscape; margin: 0.6in 0.6in 0.8in; background: #000000;
-    @bottom-center { content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency"; font-family: "Montserrat", Arial, sans-serif; font-size: 8pt; font-weight: 700; color: #B68039; }
+    @bottom-center { content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency"; font-family: "Montserrat Medium", Arial, sans-serif; font-size: 8pt; color: #B68039; }
   }
   html, body { background: #000000; }
   body { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-size: 9.5pt; color: #FFD69C; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -31,20 +35,20 @@
 <body>
   <header><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
 
-  <!-- Cada <table> = una hoja XLSX / un archivo CSV. <caption> da título en el PDF. -->
-  <table data-sheet="Ventas">
-    <caption>Ventas</caption>
-    <tr><th>Producto</th><th>Unidades</th><th>Precio</th><th>Total</th><th>Código</th></tr>
-    <tr><td>Producto A</td><td>12</td><td>19.90</td><td data-formula="=B2*C2">238.80</td><td data-type="text">007</td></tr>
-    <tr><td>Producto B</td><td>5</td><td>14.50</td><td data-formula="=B3*C3">72.50</td><td data-type="text">012</td></tr>
+  <!-- Each top-level <table> = one XLSX sheet / one CSV file. <caption> titles it in the PDF. -->
+  <table data-sheet="Sales">
+    <caption>Sales</caption>
+    <tr><th>Product</th><th>Units</th><th>Price</th><th>Total</th><th>Code</th></tr>
+    <tr><td>Product A</td><td>12</td><td>19.90</td><td data-formula="=B2*C2">238.80</td><td data-type="text">007</td></tr>
+    <tr><td>Product B</td><td>5</td><td>14.50</td><td data-formula="=B3*C3">72.50</td><td data-type="text">012</td></tr>
     <tr class="total"><td>Total</td><td data-formula="=SUM(B2:B3)">17</td><td></td><td class="key" data-formula="=SUM(D2:D3)">311.30</td><td></td></tr>
   </table>
 
-  <table data-sheet="Notas">
-    <caption>Notas</caption>
-    <tr><th>Fecha</th><th>Nota</th></tr>
-    <tr><td data-type="text">2026-01-15</td><td>Primera línea<br>Segunda línea</td></tr>
+  <table data-sheet="Notes">
+    <caption>Notes</caption>
+    <tr><th>Date</th><th>Note</th></tr>
+    <tr><td data-type="text">2026-01-15</td><td>First line<br>Second line</td></tr>
   </table>
-  <p class="note">Nota fuera de las tablas: solo aparece en el PDF.</p>
+  <p class="note">Text outside the tables appears only in the PDF.</p>
 </body>
 </html>

@@ -1,42 +1,44 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Título del documento</title>
+<title>Document title</title>
+<!-- Blank document starter. Use for any DOCX or PDF without a closer template. -->
 <style>
-  /* Marca ORAGE, modo oscuro (docs y PDF): ver brand/BRAND-GUIDELINES.md.
-     Colores en hex: el import DOCX no lee variables CSS. */
+  /* ORAGE brand, dark mode (docs and PDF): see brand/BRAND-GUIDELINES.md.
+     Hex colors only: the DOCX import does not read CSS variables. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
-  /* Un family por peso: Word y LibreOffice solo conocen normal/bold, así que
-     Medium (500) y SemiBold (600) se piden por nombre y con font-weight normal. */
+  /* One family per weight: Word and LibreOffice only know normal and bold, so
+     Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
   @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
   @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
   @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
 
-  /* Página: Chrome la usa para PDF. El pie se repite en cada página del PDF. */
+  /* Page: Chrome uses it for the PDF. The footer repeats on every PDF page. */
   @page {
     size: Letter; margin: 0.75in 0.75in 0.9in; background: #000000;
     @bottom-center {
       content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency";
-      font-family: "Montserrat", Arial, sans-serif; font-size: 8pt; font-weight: 700; color: #B68039;
+      font-family: "Montserrat Medium", Arial, sans-serif; font-size: 8pt; color: #B68039;
     }
   }
   html, body { background: #000000; }
 
-  /* Fuente en cada selector: el import DOCX de LibreOffice no hereda de body. */
+  /* Font on every selector: the LibreOffice DOCX import does not inherit from body. */
   body, p, li, td, th, span { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-weight: normal; color: #FFD69C; }
-  h1, h2, h3, .eyebrow, .wordmark { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; }
+  h1, h2, h3, .eyebrow, .wordmark, .price, .sig-name { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; }
   body { font-size: 10.5pt; line-height: 1.65; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   h1 { font-size: 34pt; letter-spacing: 4px; line-height: 1.05; margin: 14pt 0 4pt; color: #B68039; }
   h2 { font-size: 20pt; letter-spacing: 3px; margin: 20pt 0 6pt; padding-bottom: 3pt; border-bottom: 2px solid #B68039; color: #E4AF7A; }
-  h3 { font-size: 15pt; letter-spacing: 2px; margin: 12pt 0 4pt; color: #E4AF7A; }
+  h3 { font-size: 15pt; letter-spacing: 2px; margin: 10pt 0 4pt; color: #E4AF7A; }
   p  { margin: 0 0 8pt; }
   a  { color: #B68039; }
-  .eyebrow { font-size: 10pt; letter-spacing: 4px; color: #B68039; margin: 0; }
+  .eyebrow { font-size: 10pt; letter-spacing: 4px; color: #B68039; margin: 14pt 0 0; }
   .lead { font-family: "Montserrat SemiBold", Helvetica, Arial, sans-serif; font-size: 11.5pt; color: #FFE8C7; }
   .key, strong { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
+  .muted { color: #FFE8C7; font-size: 9pt; }
 
-  /* Cabecera con el emblema. Tabla: el import DOCX no admite flex. */
+  /* Header band with the emblem. A table: the DOCX import has no flex. */
   .band { width: 100%; border-collapse: collapse; }
   .band td { background: #151515; border: none; padding: 12pt 14pt; vertical-align: middle; }
   .wordmark { color: #B68039; font-size: 18pt; letter-spacing: 4px; }
@@ -44,9 +46,19 @@
   .data { width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; }
   .data th { background: #212121; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; }
   .data td { background: #151515; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; vertical-align: top; }
-  /* Texto de cabecera: en DOCX el color de th se pierde, en span se conserva. */
+  /* Header text: DOCX drops the th color but keeps a span color. */
   .th { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #E4AF7A; }
   .num { text-align: right; }
+
+  /* Feature box and price box: one-cell tables so DOCX keeps the fill. */
+  .box { width: 100%; border-collapse: collapse; margin: 8pt 0; page-break-inside: avoid; }
+  .box td { background: #212121; border: 1px solid #543C1C; padding: 10pt 12pt; vertical-align: top; }
+  .box.price-box td { border: 2px solid #B68039; }
+  .price { font-size: 30pt; letter-spacing: 2px; color: #B68039; margin: 0; }
+  .cta { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
+  /* Bebas Neue has no →: it goes in Montserrat. */
+  .arrow { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
+  .sig-name { font-size: 16pt; letter-spacing: 2px; color: #E4AF7A; margin: 0; }
   .page-break { page-break-before: always; }
 </style>
 </head>
@@ -58,27 +70,27 @@
     </tr>
   </table>
 
-  <p class="eyebrow">01 — Informe</p>
-  <h1>Título del documento</h1>
-  <p class="lead">Una frase de entrada que dice el resultado, no la función.</p>
+  <p class="eyebrow">01 — Document type</p>
+  <h1>Document title</h1>
+  <p class="lead">One opening line that states the result, not the feature.</p>
 
-  <h2>Resumen</h2>
-  <p>Frases cortas, verbos fuertes. Prefiera números a adjetivos. Destaque <span class="key">la cifra que importa</span> en dorado.</p>
+  <h2>Summary</h2>
+  <p>Short sentences, strong verbs. Prefer numbers to adjectives. Show <span class="key">the number that matters</span> in gold.</p>
   <ul>
-    <li>Elemento de lista</li>
-    <li>Otro elemento</li>
+    <li>List item</li>
+    <li>Another item</li>
   </ul>
 
-  <h2>Tabla</h2>
+  <h2>Table</h2>
   <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
-    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Concepto</span></th><th bgcolor="#212121" align="right" class="num"><span class="th">Cantidad</span></th></tr></thead>
+    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Item</span></th><th bgcolor="#212121" align="right" class="num"><span class="th">Amount</span></th></tr></thead>
     <tbody>
-      <tr><td bgcolor="#151515">Ejemplo A</td><td bgcolor="#151515" align="right" class="num">10</td></tr>
-      <tr><td bgcolor="#151515">Ejemplo B</td><td bgcolor="#151515" align="right" class="num">20</td></tr>
+      <tr><td bgcolor="#151515">Example A</td><td bgcolor="#151515" align="right" class="num">10</td></tr>
+      <tr><td bgcolor="#151515">Example B</td><td bgcolor="#151515" align="right" class="num">20</td></tr>
     </tbody>
   </table>
 
-  <h2 class="page-break">Nueva página</h2>
-  <p>Contenido tras salto de página.</p>
+  <h2 class="page-break">New page</h2>
+  <p>Content after a page break.</p>
 </body>
 </html>

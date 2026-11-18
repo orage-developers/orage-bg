@@ -1,13 +1,14 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Título de la presentación</title>
+<title>Presentation title</title>
+<!-- Blank deck starter: cover, bullets, big number, closing. PPTX and PDF. -->
 <style>
-  /* Marca ORAGE, modo oscuro (slides): ver brand/BRAND-GUIDELINES.md. */
+  /* ORAGE brand, dark mode (slides): see brand/BRAND-GUIDELINES.md. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
-  /* Un family por peso: Word y LibreOffice solo conocen normal/bold, así que
-     Medium (500) y SemiBold (600) se piden por nombre y con font-weight normal. */
+  /* One family per weight: Word and LibreOffice only know normal and bold, so
+     Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
   @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
   @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
   @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
@@ -21,7 +22,7 @@
     --font-bold: 'Montserrat', Helvetica, Arial, sans-serif;
   }
 
-  /* 16:9. Cada <section class="slide"> es una página = una diapositiva. No cambiar. */
+  /* 16:9. Each <section class="slide"> is one page = one slide. Do not change. */
   @page { size: 13.333in 7.5in; margin: 0; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--o-bg-primary); }
@@ -32,13 +33,14 @@
     display: flex; flex-direction: column; background: var(--o-bg-primary);
   }
   .slide:last-child { page-break-after: auto; break-after: auto; }
-  /* Bebas Neue: solo peso 400, siempre mayúsculas y con espaciado. */
-  .slide h1, .slide h2, .eyebrow, .big { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; margin: 0; }
+  /* Bebas Neue: weight 400 only, always uppercase and letter-spaced. */
+  .slide h1, .slide h2, .slide h3, .eyebrow, .big, .price { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; margin: 0; }
   .slide h1 { font-size: 88pt; letter-spacing: 6px; line-height: 0.95; color: var(--o-gold); }
   .slide h2 { font-size: 54pt; letter-spacing: 3px; line-height: 1; color: var(--o-copper); }
+  .slide h3 { font-size: 28pt; letter-spacing: 2px; line-height: 1.05; color: var(--o-copper); margin-bottom: 0.1in; }
   .eyebrow { font-size: 16pt; letter-spacing: 5px; color: var(--o-gold); margin-bottom: 0.15in; }
   .rule { width: 1.2in; height: 2px; background: var(--o-gold); margin: 0.25in 0 0.35in; }
-  .slide p, .slide li { font-size: 22pt; line-height: 1.6; }
+  .slide p, .slide li { font-size: 22pt; line-height: 1.6; margin: 0; }
   .lead { font-family: var(--font-semibold); color: var(--o-text-secondary); }
   strong { font-family: var(--font-bold); font-weight: 700; color: var(--o-gold); }
   .slide ul { margin: 0; padding-left: 0.35in; }
@@ -53,50 +55,55 @@
   .cover { background: var(--o-bg-secondary); justify-content: center; }
   .emblem { width: 1.3in; height: 1.3in; margin-bottom: 0.3in; }
   .card { background: var(--o-bg-container); border: 1px solid var(--o-dark-accent); border-radius: 12px; padding: 0.35in 0.4in; }
+  .card.featured { border: 2px solid var(--o-gold); }
+  .card p { font-size: 17pt; line-height: 1.5; }
   .big { font-size: 150pt; letter-spacing: 4px; color: var(--o-gold); line-height: 0.9; }
-  /* Bebas Neue no tiene →: va en Montserrat. */
+  .price { font-size: 44pt; letter-spacing: 2px; color: var(--o-gold); line-height: 1; margin: 0.1in 0; }
+  .small { font-size: 14pt !important; color: var(--o-text-secondary); }
+  /* Bebas Neue has no →: it goes in Montserrat. */
   .arrow { font-family: var(--font-bold); font-weight: 700; }
   .cols { display: flex; gap: 0.6in; align-items: center; }
   .cols > div { flex: 1; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.35in; align-items: stretch; }
 </style>
 </head>
 <body>
   <section class="slide cover">
     <img class="emblem" src="brand://logo/logo.png" alt="Orage AI Agency">
     <p class="eyebrow">Orage AI Agency</p>
-    <h1>Título de la<br>presentación</h1>
+    <h1>Presentation<br>title</h1>
     <div class="rule"></div>
-    <p class="lead">Una línea con el resultado para el comprador.</p>
+    <p class="lead">One line with the result for the buyer.</p>
   </section>
 
   <section class="slide">
-    <p class="eyebrow">01 — Contexto</p>
-    <h2>Puntos clave</h2>
+    <p class="eyebrow">01 — Context</p>
+    <h2>Key points</h2>
     <div class="rule"></div>
     <ul>
-      <li>Una idea por línea</li>
-      <li>Máximo 5 viñetas</li>
-      <li>Resultado primero, no la función</li>
+      <li>One idea per line</li>
+      <li>Five bullets at most</li>
+      <li>Result first, not the feature</li>
     </ul>
     <div class="foot"><span>Orage AI Agency</span><span>02</span></div>
   </section>
 
   <section class="slide">
-    <p class="eyebrow">02 — Resultado</p>
-    <h2>La cifra que importa</h2>
+    <p class="eyebrow">02 — Result</p>
+    <h2>The number that matters</h2>
     <div class="rule"></div>
     <div class="cols">
       <div><div class="big">3X</div></div>
-      <div class="card"><p>Una frase que explica la cifra. Solo cifras respaldadas por la fuente.</p></div>
+      <div class="card"><p>One sentence that explains the number. Only numbers the source supports.</p></div>
     </div>
     <div class="foot"><span>Orage AI Agency</span><span>03</span></div>
   </section>
 
   <section class="slide cover">
     <img class="emblem" src="brand://logo/logo.png" alt="Orage AI Agency">
-    <h2>Siguiente paso <span class="arrow">→</span></h2>
+    <h2>Next step <span class="arrow">→</span></h2>
     <div class="rule"></div>
-    <p class="lead">orage.agency</p>
+    <p class="lead">[Call to action] · orage.agency</p>
   </section>
 </body>
 </html>
