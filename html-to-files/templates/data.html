@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Datos</title>
+</head>
+<body>
+  <!-- Cada <table> = una hoja XLSX / un archivo CSV. -->
+  <table data-sheet="Ventas">
+    <tr><th>Producto</th><th>Unidades</th><th>Precio</th><th>Total</th><th>Código</th></tr>
+    <tr><td>Camiseta</td><td>12</td><td>19.90</td><td data-formula="=B2*C2">238.80</td><td data-type="text">007</td></tr>
+    <tr><td>Gorra</td><td>5</td><td>14.50</td><td data-formula="=B3*C3">72.50</td><td data-type="text">012</td></tr>
+    <tr><td>Total</td><td data-formula="=SUM(B2:B3)">17</td><td></td><td data-formula="=SUM(D2:D3)">311.30</td><td></td></tr>
+  </table>
+
+  <table data-sheet="Notas">
+    <tr><th>Fecha</th><th>Nota</th></tr>
+    <tr><td data-type="text">2026-01-15</td><td>Primera línea<br>Segunda línea</td></tr>
+  </table>
+</body>
+</html>

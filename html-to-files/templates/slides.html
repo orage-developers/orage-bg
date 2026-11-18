@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Título de la presentación</title>
+<style>
+  /* 16:9. Cada <section class="slide"> es una página = una diapositiva. */
+  @page { size: 13.333in 7.5in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #111; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide {
+    width: 13.333in; height: 7.5in; padding: 0.7in 0.9in;
+    overflow: hidden; page-break-after: always; break-after: page;
+    display: flex; flex-direction: column; background: #ffffff;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .slide h1 { font-size: 48pt; margin: 0 0 0.3in; }
+  .slide h2 { font-size: 34pt; margin: 0 0 0.3in; }
+  .slide p, .slide li { font-size: 22pt; line-height: 1.35; }
+  .title { justify-content: center; background: #111111; color: #ffffff; }
+  .cols { display: flex; gap: 0.5in; }
+  .cols > div { flex: 1; }
+</style>
+</head>
+<body>
+  <section class="slide title">
+    <h1>Título de la presentación</h1>
+    <p>Subtítulo · Fecha</p>
+  </section>
+
+  <section class="slide">
+    <h2>Puntos clave</h2>
+    <ul>
+      <li>Una idea por línea</li>
+      <li>Máximo 5–6 viñetas</li>
+      <li>Texto grande, legible</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Dos columnas</h2>
+    <div class="cols">
+      <div><p>Columna izquierda.</p></div>
+      <div><p>Columna derecha.</p></div>
+    </div>
+  </section>
+</body>
+</html>
