@@ -6,7 +6,7 @@
 <!-- Project tracker: tasks with status, done flag formula and a summary sheet. XLSX and PDF. -->
 <style>
   /* Styling only affects the PDF of this HTML. XLSX and CSV read the tables.
-     ORAGE brand, dark mode: see brand/BRAND-GUIDELINES.md. */
+     ORAGE brand: colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
   /* One family per weight: Word and LibreOffice only know normal and bold, so
      Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
@@ -14,11 +14,11 @@
   @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
   @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
   @page {
-    size: Letter landscape; margin: 0.6in 0.6in 0.8in; background: #000000;
+    size: Letter landscape; margin: 0.6in 0.6in 0.8in; background: #010101;
     @bottom-center { content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency"; font-family: "Montserrat Medium", Arial, sans-serif; font-size: 8pt; color: #B68039; }
   }
-  html, body { background: #000000; }
-  body { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-size: 9.5pt; color: #FFD69C; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #010101; }
+  body { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-size: 9.5pt; color: #FEFEFE; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   header { display: flex; align-items: center; gap: 12pt; background: #151515; padding: 10pt 14pt; }
   header img { width: 40px; height: 40px; }
   header span, caption { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; text-transform: uppercase; }
@@ -27,9 +27,9 @@
   caption { font-size: 18pt; letter-spacing: 3px; color: #E4AF7A; text-align: left; padding-bottom: 3pt; border-bottom: 2px solid #B68039; margin-bottom: 6pt; }
   th { background: #212121; color: #E4AF7A; font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; text-align: left; padding: 5pt 7pt; }
   td { background: #151515; border-bottom: 1px solid #543C1C; padding: 5pt 7pt; }
-  tr.total td { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #FFE8C7; border-top: 2px solid #B68039; }
+  tr.total td { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #DEDEDE; border-top: 2px solid #B68039; }
   .key { font-family: "Montserrat", Helvetica, Arial, sans-serif; color: #B68039; font-weight: 700; }
-  .note { font-size: 8.5pt; color: #FFE8C7; margin: 4pt 0 0; }
+  .note { font-size: 8.5pt; color: #DEDEDE; margin: 4pt 0 0; }
 </style>
 </head>
 <body>

@@ -49,7 +49,8 @@ SOFFICE_CANDIDATES = [
 BRAND_DIR = Path(__file__).resolve().parent.parent / "brand"
 BRAND_FONTS = {
     "Bebas Neue": ["BebasNeue-Regular.ttf"],
-    "Montserrat": ["Montserrat-Medium.ttf", "Montserrat-SemiBold.ttf", "Montserrat-Bold.ttf"],
+    "Montserrat": ["Montserrat-Regular.ttf", "Montserrat-Medium.ttf",
+                   "Montserrat-SemiBold.ttf", "Montserrat-Bold.ttf"],
 }
 
 
@@ -179,6 +180,14 @@ def soffice_convert(src: Path, out: Path, infilter: str, convert_to: str):
         shutil.move(str(produced[0]), out)
 
 
+# Google Docs and Slides know Google Fonts families, not per-weight names.
+# LibreOffice defaults (Liberation, Times New Roman) become the body font too.
+GOOGLE_FONTS = {
+    "Montserrat Medium": "Montserrat", "Montserrat SemiBold": "Montserrat",
+    "Liberation Sans": "Montserrat", "Liberation Serif": "Montserrat",
+    "Times New Roman": "Montserrat", "Arial": "Montserrat",
+}
+
 BODY_BGCOLOR_RE = re.compile(r'<body\b[^>]*\bbgcolor\s*=\s*["\']?#([0-9a-fA-F]{6})', re.I)
 
 
@@ -198,11 +207,14 @@ def fix_docx(docx: Path, page_color):
     """Repair what LibreOffice's HTML import leaves for Word.
 
     - CSS font lists ("Montserrat;Helvetica;Arial") become one family name;
-      Word reads the whole list as a single unknown font.
+      Word and Google Docs read the whole list as a single unknown font.
+    - Per-weight families become the family Google Docs knows (GOOGLE_FONTS).
     - body bgcolor becomes the page color (LibreOffice drops it).
     """
     def edit(name, text):
         text = re.sub(r'(w:(?:ascii|hAnsi|eastAsia|cs)=")([^";]*);[^"]*"', r'\1\2"', text)
+        text = re.sub(r'(w:(?:ascii|hAnsi|eastAsia|cs)=")([^"]*)"',
+                      lambda m: f'{m.group(1)}{GOOGLE_FONTS.get(m.group(2), m.group(2))}"', text)
         if page_color and name == "word/document.xml":
             text = re.sub(r"<w:background\b[^>]*/>", "", text)
             text = re.sub(r"(<w:document\b[^>]*>)",
@@ -224,9 +236,8 @@ def to_docx(src, out, args):
 # PostScript names from the PDF import mapped to installed family names.
 PPTX_TYPEFACES = [
     (re.compile(r"^BebasNeue.*"), "Bebas Neue"),
-    (re.compile(r"^Montserrat-?Semi.*"), "Montserrat SemiBold"),
-    (re.compile(r"^Montserrat-?Medium.*"), "Montserrat Medium"),
-    (re.compile(r"^Montserrat-?Bold.*"), "Montserrat"),
+    (re.compile(r"^Montserrat.*"), "Montserrat"),
+    (re.compile(r"^(Times New Roman|Arial|Liberation.*)$"), "Montserrat"),
 ]
 RUN_RE = re.compile(r"(<a:r><a:rPr\b)([^>]*)(>.*?</a:rPr><a:t>)(.*?)(</a:t></a:r>)", re.S)
 # Letter-spaced text comes out of the PDF import as "O R A G E   A I".
@@ -245,8 +256,6 @@ def fix_pptx(pptx: Path):
     def fix_run(m):
         head, attrs, mid, text, tail = m.groups()
         mid = re.sub(r'typeface="([^"]*)"', fix_typeface, mid)
-        if 'typeface="Montserrat"' in mid and 'b="1"' not in attrs:
-            mid = mid.replace('typeface="Montserrat"', 'typeface="Montserrat Medium"')
         if "Bebas Neue" in mid and SPACED_RE.match(text):
             text = " ".join(w.replace(" ", "") for w in text.split("   "))
             size = int((re.search(r'\bsz="(\d+)"', attrs) or [0, 2400])[1])
@@ -257,6 +266,8 @@ def fix_pptx(pptx: Path):
     def edit(name, text):
         if name.startswith("ppt/slides/slide"):
             text = RUN_RE.sub(fix_run, text)
+            # Remaining names (empty paragraphs, defaults) outside runs.
+            text = re.sub(r'typeface="([^"]*)"', fix_typeface, text)
         return text
     rewrite_zip(pptx, edit)
 
@@ -400,7 +411,7 @@ def sheet_xml(table):
         cells = []
         for c_i, cell in enumerate(row):
             ref = f"{col_letter(c_i)}{r_i}"
-            style = ' s="1"' if cell["header"] else ""
+            style = ' s="1"' if cell["header"] else ""  # body cells use xf 0 (dark)
             kind, val = cell_value(cell)
             longest = max((len(x) for x in str(val).split("\n")), default=0)
             widths[c_i] = min(max(widths[c_i], longest + 2), 60)
@@ -414,10 +425,15 @@ def sheet_xml(table):
                 style = ' s="2"' if not cell["header"] and "\n" in val else style
                 cells.append(f'<c r="{ref}"{style} t="inlineStr"><is>'
                              f'<t xml:space="preserve">{html.escape(val)}</t></is></c>')
+            else:
+                cells.append(f'<c r="{ref}"{style}/>')  # empty cells keep the dark fill
+        for c_i in range(len(row), ncols):
+            cells.append(f'<c r="{col_letter(c_i)}{r_i}"/>')
         out.append(f'<row r="{r_i}">{"".join(cells)}</row>')
     header = rows[0] and all(c["header"] for c in rows[0])
-    pane = ('<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" '
-            'activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>') if header else ""
+    pane = ('<pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>'
+            if header else "")
+    pane = f'<sheetViews><sheetView showGridLines="0" workbookViewId="0">{pane}</sheetView></sheetViews>'
     cols = "".join(f'<col min="{i}" max="{i}" width="{w}" customWidth="1"/>'
                    for i, w in enumerate(widths, 1))
     return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
@@ -428,17 +444,20 @@ def sheet_xml(table):
 STYLES_XML = (
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
     '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
-    # Brand: Montserrat body; header row in Copper (#E4AF7A) bold on #151515.
-    '<fonts count="2"><font><sz val="10"/><name val="Montserrat"/></font>'
-    '<font><b/><sz val="10"/><color rgb="FFE4AF7A"/><name val="Montserrat"/></font></fonts>'
-    '<fills count="3"><fill><patternFill patternType="none"/></fill>'
+    # Brand: Montserrat, near-white text on #010101; header row gold bold on #151515.
+    '<fonts count="2"><font><sz val="10"/><color rgb="FFFEFEFE"/><name val="Montserrat"/></font>'
+    '<font><b/><sz val="10"/><color rgb="FFB68039"/><name val="Montserrat"/></font></fonts>'
+    '<fills count="4"><fill><patternFill patternType="none"/></fill>'
     '<fill><patternFill patternType="gray125"/></fill>'
-    '<fill><patternFill patternType="solid"><fgColor rgb="FF151515"/></patternFill></fill></fills>'
-    '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>'
+    '<fill><patternFill patternType="solid"><fgColor rgb="FF151515"/></patternFill></fill>'
+    '<fill><patternFill patternType="solid"><fgColor rgb="FF010101"/></patternFill></fill></fills>'
+    '<borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border>'
+    '<border><left/><right/><top/><bottom style="thin"><color rgb="FF543C1C"/></bottom><diagonal/></border></borders>'
     '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'
-    '<cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>'
-    '<xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/>'
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">'
+    '<cellXfs count="3">'
+    '<xf numFmtId="0" fontId="0" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/>'
+    '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/>'
+    '<xf numFmtId="0" fontId="0" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1">'
     '<alignment wrapText="1" vertical="top"/></xf></cellXfs>'
     '</styleSheet>'
 )

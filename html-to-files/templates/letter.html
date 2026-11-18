@@ -5,7 +5,7 @@
 <title>Letter to Recipient</title>
 <!-- Letter: date, recipient, subject, body, signature. DOCX and PDF. -->
 <style>
-  /* ORAGE brand, dark mode (docs and PDF): see brand/BRAND-GUIDELINES.md.
+  /* ORAGE brand (docs and PDF): colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md.
      Hex colors only: the DOCX import does not read CSS variables. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
   /* One family per weight: Word and LibreOffice only know normal and bold, so
@@ -16,16 +16,16 @@
 
   /* Page: Chrome uses it for the PDF. The footer repeats on every PDF page. */
   @page {
-    size: Letter; margin: 0.75in 0.75in 0.9in; background: #000000;
+    size: Letter; margin: 0.75in 0.75in 0.9in; background: #010101;
     @bottom-center {
       content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency";
       font-family: "Montserrat Medium", Arial, sans-serif; font-size: 8pt; color: #B68039;
     }
   }
-  html, body { background: #000000; }
+  html, body { background: #010101; }
 
   /* Font on every selector: the LibreOffice DOCX import does not inherit from body. */
-  body, p, li, td, th, span { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-weight: normal; color: #FFD69C; }
+  body, p, li, td, th, span { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-weight: normal; color: #FEFEFE; }
   h1, h2, h3, .eyebrow, .wordmark, .price, .sig-name { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; }
   body { font-size: 10.5pt; line-height: 1.65; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   h1 { font-size: 34pt; letter-spacing: 4px; line-height: 1.05; margin: 14pt 0 4pt; color: #B68039; }
@@ -34,9 +34,9 @@
   p  { margin: 0 0 8pt; }
   a  { color: #B68039; }
   .eyebrow { font-size: 10pt; letter-spacing: 4px; color: #B68039; margin: 14pt 0 0; }
-  .lead { font-family: "Montserrat SemiBold", Helvetica, Arial, sans-serif; font-size: 11.5pt; color: #FFE8C7; }
+  .lead { font-family: "Montserrat SemiBold", Helvetica, Arial, sans-serif; font-size: 11.5pt; color: #DEDEDE; }
   .key, strong { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
-  .muted { color: #FFE8C7; font-size: 9pt; }
+  .muted { color: #DEDEDE; font-size: 9pt; }
 
   /* Header band with the emblem. A table: the DOCX import has no flex. */
   .band { width: 100%; border-collapse: collapse; }
@@ -62,7 +62,7 @@
   .page-break { page-break-before: always; }
 </style>
 </head>
-<body bgcolor="#000000" text="#FFD69C">
+<body bgcolor="#010101" text="#FEFEFE">
   <table class="band" width="100%" cellspacing="0" cellpadding="12" bgcolor="#151515">
     <tr>
       <td width="64" bgcolor="#151515"><img src="brand://logo/logo.png" width="56" height="56" alt="Orage AI Agency"></td>

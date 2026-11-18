@@ -1,32 +1,31 @@
-/* ORAGE AI AGENCY brand tokens. Source: BRAND-GUIDELINES.md (§4 typography, §5 color).
-   Dark mode for docs, slides, PDFs and web. Light mode for email only. Never add a color. */
+/* ORAGE AI AGENCY tokens for files made with html-to-files (docs, PDFs, decks, sheets).
+   Palette: gold accent, black and dark backgrounds, text inverted to the background.
+   Never pure black (#000000): the darkest background is #010101.
+   Fonts and voice: BRAND-GUIDELINES.md. Never add a color. */
 :root {
-  /* Dark mode: docs, slides, PDFs */
-  --o-bg-primary: #000000;          /* main background */
-  --o-bg-secondary: #151515;        /* secondary background */
-  --o-bg-container: #212121;        /* cards, boxes */
-  --o-gold: #B68039;                /* anchor gold: CTAs and titles; visible on every artifact */
-  --o-copper: #E4AF7A;              /* headings and highlights */
-  --o-copper-alt: #E3C19E;          /* optional highlight variation */
-  --o-dark-accent: #543C1C;         /* icons and dividers */
-  --o-text-primary: #FFD69C;        /* main body text and labels; never pure white in dark mode */
-  --o-text-secondary: #FFE8C7;      /* secondary text */
-  --o-text-alt: #F5E5D7;            /* soft neutral tan */
-  --o-cream: #FCE8D4;               /* light accents */
+  /* Backgrounds: black and dark */
+  --o-bg-primary: #010101;          /* page and slide background */
+  --o-bg-secondary: #151515;        /* bands, covers, table cells */
+  --o-bg-container: #212121;        /* cards, boxes, table headers */
 
-  /* Light mode: email only */
-  --o-email-bg: #FFFFFF;
-  --o-email-body: #2C1A00;
-  --o-email-body-secondary: #3D2500;
-  --o-email-heading: #7A5A2E;
-  --o-email-eyebrow: #8C6830;
-  --o-email-card-border: #D4C4AE;
+  /* Gold accent */
+  --o-gold: #B68039;                /* anchor gold: h1, rules, key numbers, CTAs; on every file */
+  --o-gold-light: #E4AF7A;          /* h2, h3, table header text */
+  --o-gold-dark: #543C1C;           /* borders and dividers */
 
-  /* Type: two fonts only */
-  --font-display: 'Bebas Neue', Impact, 'Anton', 'Oswald', 'Arial Narrow', 'Helvetica Neue Condensed', sans-serif;
-  --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  /* Text: inverted to the background */
+  --o-text-primary: #FEFEFE;        /* body text (inverse of #010101) */
+  --o-text-secondary: #DEDEDE;      /* lead, notes, labels (inverse of #212121) */
+
+  /* Charts: baseline series neutral, main series gold */
+  --o-series-1: #A6A6A6;            /* earlier period / baseline */
+  --o-series-2: #B68039;            /* later period / main */
+
+  /* Type: two fonts only (Google Fonts, available in Google Docs, Slides and Sheets) */
+  --font-display: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+  --font-body: 'Montserrat', Helvetica, Arial, sans-serif;
   --lh-body: 1.65;
 }
 
-/* Local fonts: fonts/BebasNeue-Regular.ttf, fonts/Montserrat-{Medium,SemiBold,Bold}.ttf (OFL).
+/* Local fonts: fonts/BebasNeue-Regular.ttf, fonts/Montserrat-{Regular,Medium,SemiBold,Bold}.ttf (OFL).
    Logo: logo/logo.png (gold storm emblem, 700 x 700, transparent). */
