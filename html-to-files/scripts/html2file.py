@@ -182,33 +182,83 @@ def soffice_convert(src: Path, out: Path, infilter: str, convert_to: str):
 BODY_BGCOLOR_RE = re.compile(r'<body\b[^>]*\bbgcolor\s*=\s*["\']?#([0-9a-fA-F]{6})', re.I)
 
 
-def set_docx_page_color(docx: Path, hex_color: str):
-    """Give every page of the DOCX a background color (LibreOffice drops body bgcolor)."""
-    tmp = docx.with_suffix(".tmp.docx")
-    with zipfile.ZipFile(docx) as zin, zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as zout:
+def rewrite_zip(path: Path, edit):
+    """Rewrite the XML parts of an Office file in place: edit(name, text) -> text."""
+    tmp = path.with_name(path.name + ".tmp")
+    with zipfile.ZipFile(path) as zin, zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as zout:
         for item in zin.infolist():
             data = zin.read(item.filename)
-            if item.filename == "word/document.xml":
-                text = re.sub(r"<w:background\b[^>]*/>", "", data.decode("utf-8"))
-                text = re.sub(r"(<w:document\b[^>]*>)",
-                              rf'\1<w:background w:color="{hex_color}"/>', text, count=1)
-                data = text.encode("utf-8")
-            elif item.filename == "word/settings.xml":
-                text = data.decode("utf-8")
-                if "displayBackgroundShape" not in text:
-                    text = re.sub(r"(<w:settings\b[^>]*>)", r"\1<w:displayBackgroundShape/>",
-                                  text, count=1)
-                data = text.encode("utf-8")
+            if item.filename.endswith((".xml", ".rels")):
+                data = edit(item.filename, data.decode("utf-8")).encode("utf-8")
             zout.writestr(item, data)
-    tmp.replace(docx)
+    tmp.replace(path)
+
+
+def fix_docx(docx: Path, page_color):
+    """Repair what LibreOffice's HTML import leaves for Word.
+
+    - CSS font lists ("Montserrat;Helvetica;Arial") become one family name;
+      Word reads the whole list as a single unknown font.
+    - body bgcolor becomes the page color (LibreOffice drops it).
+    """
+    def edit(name, text):
+        text = re.sub(r'(w:(?:ascii|hAnsi|eastAsia|cs)=")([^";]*);[^"]*"', r'\1\2"', text)
+        if page_color and name == "word/document.xml":
+            text = re.sub(r"<w:background\b[^>]*/>", "", text)
+            text = re.sub(r"(<w:document\b[^>]*>)",
+                          rf'\1<w:background w:color="{page_color}"/>', text, count=1)
+        if page_color and name == "word/settings.xml" and "displayBackgroundShape" not in text:
+            text = re.sub(r"(<w:settings\b[^>]*>)", r"\1<w:displayBackgroundShape/>",
+                          text, count=1)
+        return text
+    rewrite_zip(docx, edit)
 
 
 def to_docx(src, out, args):
     ensure_brand_fonts()
     soffice_convert(src, out, "HTML (StarWriter)", "docx:MS Word 2007 XML")
     m = BODY_BGCOLOR_RE.search(src.read_text(encoding="utf-8"))
-    if m:
-        set_docx_page_color(out, m.group(1).upper())
+    fix_docx(out, m.group(1).upper() if m else None)
+
+
+# PostScript names from the PDF import mapped to installed family names.
+PPTX_TYPEFACES = [
+    (re.compile(r"^BebasNeue.*"), "Bebas Neue"),
+    (re.compile(r"^Montserrat-?Semi.*"), "Montserrat SemiBold"),
+    (re.compile(r"^Montserrat-?Medium.*"), "Montserrat Medium"),
+    (re.compile(r"^Montserrat-?Bold.*"), "Montserrat"),
+]
+RUN_RE = re.compile(r"(<a:r><a:rPr\b)([^>]*)(>.*?</a:rPr><a:t>)(.*?)(</a:t></a:r>)", re.S)
+# Letter-spaced text comes out of the PDF import as "O R A G E   A I".
+SPACED_RE = re.compile(r"^\S(?: \S)+(?:   \S(?: \S)*)*$")
+
+
+def fix_pptx(pptx: Path):
+    """Restore real font names and letter-spacing lost in the PDF import."""
+    def fix_typeface(m):
+        name = m.group(1)
+        for pattern, family in PPTX_TYPEFACES:
+            if pattern.match(name):
+                return f'typeface="{family}"'
+        return m.group(0)
+
+    def fix_run(m):
+        head, attrs, mid, text, tail = m.groups()
+        mid = re.sub(r'typeface="([^"]*)"', fix_typeface, mid)
+        if 'typeface="Montserrat"' in mid and 'b="1"' not in attrs:
+            mid = mid.replace('typeface="Montserrat"', 'typeface="Montserrat Medium"')
+        if "Bebas Neue" in mid and SPACED_RE.match(text):
+            text = " ".join(w.replace(" ", "") for w in text.split("   "))
+            size = int((re.search(r'\bsz="(\d+)"', attrs) or [0, 2400])[1])
+            spacing = min(round(size * 0.06), 450)
+            attrs = re.sub(r'\s*spc="-?\d+"', "", attrs) + f' spc="{spacing}"'
+        return f"{head}{attrs}{mid}{text}{tail}"
+
+    def edit(name, text):
+        if name.startswith("ppt/slides/slide"):
+            text = RUN_RE.sub(fix_run, text)
+        return text
+    rewrite_zip(pptx, edit)
 
 
 def to_pdf(src, out, args):
@@ -221,6 +271,7 @@ def to_pptx(src, out, args):
         chrome_pdf(src, pdf, args.wait)
         ensure_brand_fonts()
         soffice_convert(pdf, out, "impress_pdf_import", "pptx")
+    fix_pptx(out)
 
 
 # --- Tables (XLSX / CSV) ---------------------------------------------------

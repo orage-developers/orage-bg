@@ -6,22 +6,26 @@
 <style>
   /* Marca ORAGE, modo oscuro (slides): ver brand/BRAND-GUIDELINES.md. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
-  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Medium.ttf"); font-weight: 500; }
-  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); font-weight: 600; }
+  /* Un family por peso: Word y LibreOffice solo conocen normal/bold, así que
+     Medium (500) y SemiBold (600) se piden por nombre y con font-weight normal. */
+  @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
+  @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
   @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
   :root {
     --o-bg-primary: #000000; --o-bg-secondary: #151515; --o-bg-container: #212121;
     --o-gold: #B68039; --o-copper: #E4AF7A; --o-dark-accent: #543C1C;
     --o-text-primary: #FFD69C; --o-text-secondary: #FFE8C7;
     --font-display: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
-    --font-body: 'Montserrat', Helvetica, Arial, sans-serif;
+    --font-body: 'Montserrat Medium', Helvetica, Arial, sans-serif;
+    --font-semibold: 'Montserrat SemiBold', Helvetica, Arial, sans-serif;
+    --font-bold: 'Montserrat', Helvetica, Arial, sans-serif;
   }
 
   /* 16:9. Cada <section class="slide"> es una página = una diapositiva. No cambiar. */
   @page { size: 13.333in 7.5in; margin: 0; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--o-bg-primary); }
-  body { font-family: var(--font-body); font-weight: 500; color: var(--o-text-primary); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: var(--font-body); color: var(--o-text-primary); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .slide {
     position: relative; width: 13.333in; height: 7.5in; padding: 0.8in 0.9in 0.9in;
     overflow: hidden; page-break-after: always; break-after: page;
@@ -35,7 +39,8 @@
   .eyebrow { font-size: 16pt; letter-spacing: 5px; color: var(--o-gold); margin-bottom: 0.15in; }
   .rule { width: 1.2in; height: 2px; background: var(--o-gold); margin: 0.25in 0 0.35in; }
   .slide p, .slide li { font-size: 22pt; line-height: 1.6; }
-  .lead { font-weight: 600; color: var(--o-text-secondary); }
+  .lead { font-family: var(--font-semibold); color: var(--o-text-secondary); }
+  strong { font-family: var(--font-bold); font-weight: 700; color: var(--o-gold); }
   .slide ul { margin: 0; padding-left: 0.35in; }
   .slide li { margin-bottom: 0.1in; }
   .slide li::marker { color: var(--o-gold); }
@@ -49,6 +54,8 @@
   .emblem { width: 1.3in; height: 1.3in; margin-bottom: 0.3in; }
   .card { background: var(--o-bg-container); border: 1px solid var(--o-dark-accent); border-radius: 12px; padding: 0.35in 0.4in; }
   .big { font-size: 150pt; letter-spacing: 4px; color: var(--o-gold); line-height: 0.9; }
+  /* Bebas Neue no tiene →: va en Montserrat. */
+  .arrow { font-family: var(--font-bold); font-weight: 700; }
   .cols { display: flex; gap: 0.6in; align-items: center; }
   .cols > div { flex: 1; }
 </style>
@@ -79,7 +86,7 @@
     <h2>La cifra que importa</h2>
     <div class="rule"></div>
     <div class="cols">
-      <div><div class="big">3×</div></div>
+      <div><div class="big">3X</div></div>
       <div class="card"><p>Una frase que explica la cifra. Solo cifras respaldadas por la fuente.</p></div>
     </div>
     <div class="foot"><span>Orage AI Agency</span><span>03</span></div>
@@ -87,7 +94,7 @@
 
   <section class="slide cover">
     <img class="emblem" src="brand://logo/logo.png" alt="Orage AI Agency">
-    <h2>Siguiente paso →</h2>
+    <h2>Siguiente paso <span class="arrow">→</span></h2>
     <div class="rule"></div>
     <p class="lead">orage.agency</p>
   </section>

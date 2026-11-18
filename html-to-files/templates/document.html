@@ -7,8 +7,10 @@
   /* Marca ORAGE, modo oscuro (docs y PDF): ver brand/BRAND-GUIDELINES.md.
      Colores en hex: el import DOCX no lee variables CSS. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
-  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Medium.ttf"); font-weight: 500; }
-  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); font-weight: 600; }
+  /* Un family por peso: Word y LibreOffice solo conocen normal/bold, así que
+     Medium (500) y SemiBold (600) se piden por nombre y con font-weight normal. */
+  @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
+  @font-face { font-family: "Montserrat SemiBold"; src: url("brand://fonts/Montserrat-SemiBold.ttf"); }
   @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
 
   /* Página: Chrome la usa para PDF. El pie se repite en cada página del PDF. */
@@ -22,17 +24,17 @@
   html, body { background: #000000; }
 
   /* Fuente en cada selector: el import DOCX de LibreOffice no hereda de body. */
-  body, p, li, td, th, span { font-family: "Montserrat", Helvetica, Arial, sans-serif; color: #FFD69C; }
+  body, p, li, td, th, span { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-weight: normal; color: #FFD69C; }
   h1, h2, h3, .eyebrow, .wordmark { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; text-transform: uppercase; }
-  body { font-size: 10.5pt; font-weight: 500; line-height: 1.65; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-size: 10.5pt; line-height: 1.65; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   h1 { font-size: 34pt; letter-spacing: 4px; line-height: 1.05; margin: 14pt 0 4pt; color: #B68039; }
   h2 { font-size: 20pt; letter-spacing: 3px; margin: 20pt 0 6pt; padding-bottom: 3pt; border-bottom: 2px solid #B68039; color: #E4AF7A; }
   h3 { font-size: 15pt; letter-spacing: 2px; margin: 12pt 0 4pt; color: #E4AF7A; }
   p  { margin: 0 0 8pt; }
   a  { color: #B68039; }
   .eyebrow { font-size: 10pt; letter-spacing: 4px; color: #B68039; margin: 0; }
-  .lead { font-size: 11.5pt; font-weight: 600; color: #FFE8C7; }
-  .key { color: #B68039; font-weight: 700; }
+  .lead { font-family: "Montserrat SemiBold", Helvetica, Arial, sans-serif; font-size: 11.5pt; color: #FFE8C7; }
+  .key, strong { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #B68039; }
 
   /* Cabecera con el emblema. Tabla: el import DOCX no admite flex. */
   .band { width: 100%; border-collapse: collapse; }
@@ -43,7 +45,7 @@
   .data th { background: #212121; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; }
   .data td { background: #151515; border: 1px solid #543C1C; padding: 5pt 7pt; text-align: left; vertical-align: top; }
   /* Texto de cabecera: en DOCX el color de th se pierde, en span se conserva. */
-  .th { color: #E4AF7A; font-weight: 700; }
+  .th { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #E4AF7A; }
   .num { text-align: right; }
   .page-break { page-break-before: always; }
 </style>

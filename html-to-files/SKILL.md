@@ -45,6 +45,15 @@ archivo cumple:
   MAYÚSCULAS y con letter-spacing) para títulos, eyebrows, precios y
   botones; Montserrat (500 texto, 600 entradilla, 700 énfasis) en
   sentence case para el resto.
+- **Un family por peso**: Word y LibreOffice solo distinguen normal y bold.
+  Pide Medium y SemiBold por nombre con `font-weight: normal`:
+  `"Montserrat Medium"` (texto), `"Montserrat SemiBold"` (entradilla) y
+  `"Montserrat"` con `font-weight: 700` (énfasis). Las plantillas ya
+  declaran los `@font-face`. Nunca uses `font-weight: 500` o `600`: en
+  DOCX salen en Bold.
+- Bebas Neue no tiene `→` ni `×`. Escribe `3X` en vez de `3×` y pon la
+  flecha en Montserrat: `<span class="arrow">→</span>`. Si no, aparece una
+  tercera fuente de reserva.
 - **Emblema** `brand://logo/logo.png` en cada pieza, sin alterar.
 - **Voz**: confiada, directa, premium, orientada a la acción. Resultado
   primero, frases cortas, números en vez de adjetivos, "nosotros" para la
@@ -84,8 +93,10 @@ repositorio: si cambia la raíz, actualiza la copia.
    ```bash
    cp <skill-dir>/templates/document.html <salida>/informe.html
    ```
-3. Escribe el contenido en ese HTML. Conserva el bloque `<style>` y la
-   cabecera con el emblema. Respeta las reglas del formato (abajo).
+3. Escribe el contenido en ese HTML. Cambia el `<title>`. Conserva el
+   bloque `<style>` y la cabecera con el emblema. Respeta las reglas del
+   formato (abajo). `text-transform: uppercase` funciona en todos los
+   formatos.
 4. Convierte:
    ```bash
    python3 <skill-dir>/scripts/html2file.py <salida>/informe.html --to docx
@@ -166,13 +177,19 @@ LibreOffice importa un subconjunto de HTML/CSS. Para un DOCX fiel:
 - Portada y cierre con clase `cover` y emblema; contenido sobre negro.
 - El PPTX tiene texto y formas editables, colocados de forma absoluta. Para
   cambiar el diseño, edita el HTML y reconvierte.
+- El script corrige el PPTX tras el import: nombres de fuente reales y
+  letter-spacing de Bebas Neue. El espaciado del PPTX es aproximado; el
+  PDF del mismo HTML es la referencia exacta.
+- Tamaño de texto que cabe: título 54–88pt, texto 20–24pt, máximo 5
+  viñetas o unas 40 palabras por diapositiva.
 
 ### XLSX
 
 - Cada `<table>` de nivel superior es una hoja. Nombre de hoja:
   `data-sheet="Nombre"`, si no, el `<caption>`, si no, `Sheet1`, `Sheet2`…
-- Las celdas `<th>` salen con el estilo de marca (Montserrat Bold cobre
-  sobre `#151515`). Si la primera fila es de `<th>`, queda fija.
+- El script aplica el estilo de marca: Montserrat en todas las celdas y
+  `<th>` en Montserrat Bold cobre sobre `#151515`. El CSS del HTML no
+  afecta al XLSX. Si la primera fila es de `<th>`, queda fija.
 - Tipos: números como `12` o `19.90` se guardan como número. Fuerza texto
   con `data-type="text"` (códigos con ceros a la izquierda, fechas ISO,
   teléfonos). Fuerza número con `data-type="number"`. Booleano:
@@ -200,7 +217,9 @@ LibreOffice importa un subconjunto de HTML/CSS. Para un DOCX fiel:
 ## Verificación
 
 Usa un directorio de trabajo temporal propio (`$CHECK`), por ejemplo el
-scratchpad de la sesión o `mktemp -d`. Comprueba siempre:
+scratchpad de la sesión o `mktemp -d`. Nunca uses la carpeta de salida: el
+PDF de revisión sobrescribiría el PDF entregado. Revisa todas las páginas,
+no solo la primera (ajusta `-l`). Comprueba siempre:
 
 - PDF: `head -c 4 archivo.pdf` imprime `%PDF`. Rasteriza y mira las
   páginas:
@@ -214,6 +233,9 @@ scratchpad de la sesión o `mktemp -d`. Comprueba siempre:
   pdfinfo "$CHECK/archivo.pdf" | grep Pages
   pdftoppm -r 40 -png -f 1 -l 2 "$CHECK/archivo.pdf" "$CHECK/p"
   ```
+- Fuentes: en cada PDF (entregado o de revisión), `pdffonts` solo debe
+  listar BebasNeue y Montserrat (más OpenSymbol para viñetas de DOCX).
+  Cualquier otra fuente es un glifo sin cobertura o un nombre mal escrito.
 - PPTX: el número de diapositivas debe igualar el número de `.slide`:
   `unzip -l archivo.pptx | grep -c 'ppt/slides/slide[0-9]*.xml'`.
 - XLSX: exporta todas las hojas a CSV (una por hoja) y revisa valores y
@@ -230,6 +252,8 @@ scratchpad de la sesión o `mktemp -d`. Comprueba siempre:
   codificación. Guarda siempre en UTF-8 con `<meta charset="utf-8">`.
 - `Chrome/Chromium not found`: instala Chrome o define `CHROME_BIN`.
 - Fuentes distintas en DOCX: la fuente no se declaró en cada selector.
+- Texto en Bold en DOCX: se usó `font-weight: 500/600` en vez del family
+  por peso.
 - Página blanca en DOCX: falta `bgcolor` en `<body>`.
 - Diapositivas de más en PPTX: algún `.slide` desborda o hay contenido
   fuera de las secciones.

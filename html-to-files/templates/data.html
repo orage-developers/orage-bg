@@ -2,29 +2,29 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Datos</title>
+<title>Datos</title><!-- Cambie el título: es el nombre del PDF en el visor. -->
 <style>
   /* El estilo solo afecta al PDF de este HTML. XLSX y CSV leen las tablas.
      Marca ORAGE, modo oscuro: ver brand/BRAND-GUIDELINES.md. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
-  @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Medium.ttf"); font-weight: 500; }
+  @font-face { font-family: "Montserrat Medium"; src: url("brand://fonts/Montserrat-Medium.ttf"); }
   @font-face { font-family: "Montserrat"; src: url("brand://fonts/Montserrat-Bold.ttf"); font-weight: 700; }
   @page {
     size: Letter landscape; margin: 0.6in 0.6in 0.8in; background: #000000;
     @bottom-center { content: "© Orage AI Agency · Edmond, Oklahoma · orage.agency"; font-family: "Montserrat", Arial, sans-serif; font-size: 8pt; font-weight: 700; color: #B68039; }
   }
   html, body { background: #000000; }
-  body { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 500; font-size: 9.5pt; color: #FFD69C; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Montserrat Medium", Helvetica, Arial, sans-serif; font-size: 9.5pt; color: #FFD69C; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   header { display: flex; align-items: center; gap: 12pt; background: #151515; padding: 10pt 14pt; }
   header img { width: 40px; height: 40px; }
   header span, caption { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; text-transform: uppercase; }
   header span { font-size: 18pt; letter-spacing: 4px; color: #B68039; }
   table { width: 100%; border-collapse: collapse; margin: 14pt 0; }
   caption { font-size: 18pt; letter-spacing: 3px; color: #E4AF7A; text-align: left; padding-bottom: 3pt; border-bottom: 2px solid #B68039; margin-bottom: 6pt; }
-  th { background: #212121; color: #E4AF7A; font-weight: 700; text-align: left; padding: 5pt 7pt; }
+  th { background: #212121; color: #E4AF7A; font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; text-align: left; padding: 5pt 7pt; }
   td { background: #151515; border-bottom: 1px solid #543C1C; padding: 5pt 7pt; }
-  tr.total td { font-weight: 700; color: #FFE8C7; border-top: 2px solid #B68039; }
-  .key { color: #B68039; font-weight: 700; }
+  tr.total td { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #FFE8C7; border-top: 2px solid #B68039; }
+  .key { font-family: "Montserrat", Helvetica, Arial, sans-serif; color: #B68039; font-weight: 700; }
   .note { font-size: 8.5pt; color: #FFE8C7; margin: 4pt 0 0; }
 </style>
 </head>
