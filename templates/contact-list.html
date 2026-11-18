@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Data</title>
-<!-- Blank data starter: two sheets, number/text types, formulas, total row. XLSX, CSV and PDF. -->
+<title>Contact list</title>
+<!-- Contact or lead list: one table, built for CSV; XLSX and PDF also work. -->
 <style>
   /* Styling only affects the PDF of this HTML. XLSX and CSV read the tables.
-     ORAGE brand: colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md. */
+     ORAGE brand: colors per rules/brand.md, fonts and voice per BRAND-GUIDELINES.md. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
   /* One family per weight: Word and LibreOffice only know normal and bold, so
      Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
@@ -44,22 +44,15 @@
 </style>
 </head>
 <body>
-  <header class="compact"><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
+  <header><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
 
   <!-- Each top-level <table> = one XLSX sheet / one CSV file. <caption> titles it in the PDF. -->
-  <table data-sheet="Sales">
-    <caption>Sales</caption>
-    <tr><th>Product</th><th>Units</th><th>Price</th><th>Total</th><th>Code</th></tr>
-    <tr><td>Product A</td><td>12</td><td>19.90</td><td data-formula="=B2*C2">238.80</td><td data-type="text">007</td></tr>
-    <tr><td>Product B</td><td>5</td><td>14.50</td><td data-formula="=B3*C3">72.50</td><td data-type="text">012</td></tr>
-    <tr class="total"><td>Total</td><td data-formula="=SUM(B2:B3)">17</td><td></td><td class="key" data-formula="=SUM(D2:D3)">311.30</td><td></td></tr>
+  <table data-sheet="Contacts">
+    <caption>Contacts · [List name]</caption>
+    <tr><th>Name</th><th>Company</th><th>Email</th><th>Phone</th><th>Revenue band</th><th>Source</th><th>Stage</th></tr>
+    <tr><td>[Name]</td><td>[Company]</td><td>[email]</td><td data-type="text">[+1 405 000 0000]</td><td>$1M–$5M</td><td>[Referral]</td><td>New</td></tr>
+    <tr><td>[Name]</td><td>[Company]</td><td>[email]</td><td data-type="text">[+1 405 000 0000]</td><td>$5M–$20M</td><td>[Website]</td><td>Qualified</td></tr>
   </table>
-
-  <table data-sheet="Notes">
-    <caption>Notes</caption>
-    <tr><th>Date</th><th>Note</th></tr>
-    <tr><td data-type="text">2026-01-15</td><td>First line<br>Second line</td></tr>
-  </table>
-  <p class="note">Text outside the tables appears only in the PDF.</p>
+  <p class="note">One table, one CSV. Phones, ZIP codes and IDs use data-type="text" to keep leading zeros. Mark sample data as sample.</p>
 </body>
 </html>

@@ -15,7 +15,7 @@ description: >
 
 Always, without exception:
 
-1. **Follow the brand guidelines**: `brand/BRAND-GUIDELINES.md` and
+1. **Follow the brand guidelines**: `BRAND-GUIDELINES.md` and
    [rules/brand.md](rules/brand.md).
 2. **Follow the rules for files** in `rules/`: read
    [rules/workflow.md](rules/workflow.md), the rule for the template you use

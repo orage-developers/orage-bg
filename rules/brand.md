@@ -1,7 +1,7 @@
 # Brand
 
 Every file follows the Orage AI Agency brand, unless the request explicitly
-names another brand. Read `brand/BRAND-GUIDELINES.md` in full before you
+names another brand. Read `BRAND-GUIDELINES.md` in full before you
 write the HTML. Take the voice, typography and company facts (offer, prices,
 products, location) from it. Take colors from this rule: this palette
 replaces the color section of the guidelines for every file this skill
@@ -92,7 +92,6 @@ when they are missing, so the conversion measures text with the real fonts.
 
 ## Brand folder
 
-`brand/` holds `BRAND-GUIDELINES.md`, `tokens.css`, `fonts/` (Bebas Neue,
-Montserrat Regular/Medium/SemiBold/Bold, OFL licenses) and `logo/logo.png`.
-`brand/BRAND-GUIDELINES.md` is a copy of `BRAND-GUIDELINES.md` at the
-repository root: when the root file changes, update the copy.
+`BRAND-GUIDELINES.md` sits at the skill root. `brand/` holds `tokens.css`,
+`fonts/` (Bebas Neue, Montserrat Regular/Medium/SemiBold/Bold, OFL licenses)
+and `logo/logo.png`.

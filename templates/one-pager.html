@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Letter to Recipient</title>
-<!-- Letter: date, recipient, subject, body, signature. DOCX and PDF. -->
+<title>Orage one-pager</title>
+<!-- One-pager: positioning, products, offer ladder, CTA. Fits one page. Best as PDF; DOCX works. -->
 <style>
-  /* ORAGE brand (docs and PDF): colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md.
+  /* ORAGE brand (docs and PDF): colors per rules/brand.md, fonts and voice per BRAND-GUIDELINES.md.
      Hex colors only: the DOCX import does not read CSS variables. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
   /* One family per weight: Word and LibreOffice only know normal and bold, so
@@ -67,6 +67,12 @@
   .page-break { page-break-before: always; }
   /* Keep headings with the content that follows them. */
   h1, h2, h3, .eyebrow { page-break-after: avoid; break-after: avoid; }
+  /* One page: tighter margins, type and spacing. */
+  @page { margin: 0.5in 0.6in 0.7in; }
+  body { font-size: 9.5pt; line-height: 1.45; }
+  h1 { font-size: 30pt; margin-top: 8pt; }
+  h2 { margin-top: 10pt; }
+  .data, .box { margin: 4pt 0 8pt; }
 </style>
 </head>
 <body bgcolor="#010101" text="#FEFEFE">
@@ -74,17 +80,39 @@
     <tr><td align="right"><img src="brand://logo/logo.png" width="22" height="22" alt="Orage AI Agency">&nbsp;&nbsp;<span class="wordmark-sm">ORAGE AI AGENCY</span></td></tr>
   </table>
 
-  <p class="muted" style="margin-top: 18pt;">[Month DD, YYYY]</p>
-  <p>[Recipient name]<br>[Title]<br>[Company]</p>
+  <p class="eyebrow">Orage AI Agency</p>
+  <h1>Your team at 3X capacity</h1>
+  <p class="lead">We make your team operate at 3× capacity without adding a single hire.</p>
+  <p>AI infrastructure and automation for service businesses at $1M–$100M+ ARR. AI plus humans, not AI versus humans.</p>
 
-  <p class="eyebrow">Re: [Subject]</p>
-  <p>[First name],</p>
-  <p>[Open with the result for the reader. One short paragraph.]</p>
-  <p>[Supporting detail: what we will do, by when, and what you need to do. Keep it under 120 words.]</p>
-  <p>[One clear next step.]</p>
+  <h2>What you get</h2>
+  <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
+    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Product</span></th><th bgcolor="#212121" align="left"><span class="th">What it does</span></th></tr></thead>
+    <tbody>
+      <tr><td bgcolor="#151515"><strong>STACY</strong></td><td bgcolor="#151515">24/7 AI phone agent. Answers, qualifies, books and logs to CRM. Live within 24 hours.</td></tr>
+      <tr><td bgcolor="#151515"><strong>AI Chat / Messaging Agent</strong></td><td bgcolor="#151515">Website chat and SMS automation.</td></tr>
+      <tr><td bgcolor="#151515"><strong>Pre-Configured CRM</strong></td><td bgcolor="#151515">Fills itself from STACY and chat interactions.</td></tr>
+      <tr><td bgcolor="#151515"><strong>Weekly Group Call</strong></td><td bgcolor="#151515">Bring a problem. Leave with a framework, agent or tool.</td></tr>
+    </tbody>
+  </table>
 
-  <p style="margin-top: 16pt;">Talk soon,</p>
-  <p class="sig-name">[Full name]</p>
-  <p class="muted">[Title] · Orage AI Agency<br>[email] · orage.agency</p>
+  <h2>Pick your tier</h2>
+  <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
+    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Tier</span></th><th bgcolor="#212121" align="left"><span class="th">Offer</span></th><th bgcolor="#212121" align="left"><span class="th">Price</span></th><th bgcolor="#212121" align="left"><span class="th">Delivery</span></th></tr></thead>
+    <tbody>
+      <tr><td bgcolor="#151515">1</td><td bgcolor="#151515">Orage AI Toolkit</td><td bgcolor="#151515">TBD</td><td bgcolor="#151515">DIY</td></tr>
+      <tr><td bgcolor="#151515">2</td><td bgcolor="#151515"><strong>Orage 90 — AI Enabled Business</strong></td><td bgcolor="#151515"><strong>$2,500/mo</strong></td><td bgcolor="#151515">DFY</td></tr>
+      <tr><td bgcolor="#151515">3</td><td bgcolor="#151515">Orage AI First — Agentic Infrastructure</td><td bgcolor="#151515">Custom</td><td bgcolor="#151515">DFY+</td></tr>
+    </tbody>
+  </table>
+
+  <table class="box price-box" border="1" cellspacing="0" cellpadding="12" width="100%">
+    <tr><td bgcolor="#212121">
+      <p class="eyebrow">Recommended</p>
+      <p class="price">Orage 90 · $2,500 /mo</p>
+      <p class="muted">Done-for-you · 90-day performance guarantee</p>
+      <p class="cta">Secure my Orage 90 <span class="arrow">→</span> orage.agency</p>
+    </td></tr>
+  </table>
 </body>
 </html>

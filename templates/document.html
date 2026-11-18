@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Proposal for Client</title>
-<!-- Proposal: client problem, solution, Orage 90 price box, timeline, CTA. DOCX and PDF. -->
+<title>Document title</title>
+<!-- Blank document starter. Use for any DOCX or PDF without a closer template. -->
 <style>
-  /* ORAGE brand (docs and PDF): colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md.
+  /* ORAGE brand (docs and PDF): colors per rules/brand.md, fonts and voice per BRAND-GUIDELINES.md.
      Hex colors only: the DOCX import does not read CSS variables. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
   /* One family per weight: Word and LibreOffice only know normal and bold, so
@@ -67,15 +67,6 @@
   .page-break { page-break-before: always; }
   /* Keep headings with the content that follows them. */
   h1, h2, h3, .eyebrow { page-break-after: avoid; break-after: avoid; }
-  /* Compact type scale. */
-  body { font-size: 10pt; line-height: 1.55; }
-  h1 { font-size: 24pt; letter-spacing: 3px; margin: 14pt 0 4pt; }
-  h2 { font-size: 14pt; letter-spacing: 2px; margin: 16pt 0 6pt; }
-  h3 { font-size: 11.5pt; letter-spacing: 1.5px; margin: 6pt 0 2pt; }
-  .eyebrow { font-size: 8.5pt; letter-spacing: 3px; }
-  .lead { font-size: 10.5pt; }
-  .price { font-size: 20pt; }
-  .box td { padding: 8pt 10pt; }
 </style>
 </head>
 <body bgcolor="#010101" text="#FEFEFE">
@@ -83,58 +74,27 @@
     <tr><td align="right"><img src="brand://logo/logo.png" width="22" height="22" alt="Orage AI Agency">&nbsp;&nbsp;<span class="wordmark-sm">ORAGE AI AGENCY</span></td></tr>
   </table>
 
-  <p class="eyebrow">Proposal · [Client]</p>
-  <h1>[Outcome for the client]</h1>
-  <p class="lead">[One line: the result we will deliver and by when.]</p>
-  <p class="muted">Prepared for [Name, Title] · [Date] · Valid for 30 days</p>
+  <p class="eyebrow">01 — Document type</p>
+  <h1>Document title</h1>
+  <p class="lead">One opening line that states the result, not the feature.</p>
 
-  <h2>Where you are</h2>
-  <p>[The constraint in the client's words: team stretched, calls missed, manual work. Use their numbers.]</p>
+  <h2>Summary</h2>
+  <p>Short sentences, strong verbs. Prefer numbers to adjectives. Show <span class="key">the number that matters</span> in gold.</p>
+  <ul>
+    <li>List item</li>
+    <li>Another item</li>
+  </ul>
 
-  <h2>What we build</h2>
-  <table class="box" border="1" cellspacing="0" cellpadding="12" width="100%">
-    <tr><td bgcolor="#212121">
-      <p class="eyebrow">01 — STACY</p>
-      <h3>24/7 AI phone agent</h3>
-      <p>Answers, qualifies, books and logs to your CRM. Live within 24 hours of signup.</p>
-    </td></tr>
-  </table>
-  <table class="box" border="1" cellspacing="0" cellpadding="12" width="100%">
-    <tr><td bgcolor="#212121">
-      <p class="eyebrow">02 — AI Chat / Messaging Agent</p>
-      <h3>Website chat and SMS</h3>
-      <p>Every inbound message gets an answer and a next step.</p>
-    </td></tr>
-  </table>
-  <table class="box" border="1" cellspacing="0" cellpadding="12" width="100%">
-    <tr><td bgcolor="#212121">
-      <p class="eyebrow">03 — Pre-Configured CRM</p>
-      <h3>A CRM that fills itself</h3>
-      <p>STACY and chat interactions land in the CRM without manual entry.</p>
-    </td></tr>
-  </table>
-
-  <h2>Investment</h2>
-  <table class="box price-box" border="1" cellspacing="0" cellpadding="12" width="100%">
-    <tr><td bgcolor="#212121">
-      <p class="eyebrow">Orage 90 — AI Enabled Business</p>
-      <p class="price">$2,500 /mo</p>
-      <p class="muted">Done-for-you · 90-day performance guarantee</p>
-    </td></tr>
-  </table>
-
-  <h2>Timeline</h2>
+  <h2>Table</h2>
   <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
-    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Week</span></th><th bgcolor="#212121" align="left"><span class="th">Milestone</span></th></tr></thead>
+    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Item</span></th><th bgcolor="#212121" align="right" class="num"><span class="th">Amount</span></th></tr></thead>
     <tbody>
-      <tr><td bgcolor="#151515">1</td><td bgcolor="#151515">[Kickoff and access]</td></tr>
-      <tr><td bgcolor="#151515">2</td><td bgcolor="#151515">[STACY live]</td></tr>
-      <tr><td bgcolor="#151515">3–4</td><td bgcolor="#151515">[Chat and CRM live]</td></tr>
-      <tr><td bgcolor="#151515">5–12</td><td bgcolor="#151515">[Weekly group calls and tuning]</td></tr>
+      <tr><td bgcolor="#151515">Example A</td><td bgcolor="#151515" align="right" class="num">10</td></tr>
+      <tr><td bgcolor="#151515">Example B</td><td bgcolor="#151515" align="right" class="num">20</td></tr>
     </tbody>
   </table>
 
-  <h2>Next step</h2>
-  <p class="cta">Secure your Orage 90 <span class="arrow">→</span> [booking link]</p>
+  <h2 class="page-break">New page</h2>
+  <p>Content after a page break.</p>
 </body>
 </html>

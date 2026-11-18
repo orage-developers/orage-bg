@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Orage one-pager</title>
-<!-- One-pager: positioning, products, offer ladder, CTA. Fits one page. Best as PDF; DOCX works. -->
+<title>Proposal for Client</title>
+<!-- Proposal: client problem, solution, Orage 90 price box, timeline, CTA. DOCX and PDF. -->
 <style>
-  /* ORAGE brand (docs and PDF): colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md.
+  /* ORAGE brand (docs and PDF): colors per rules/brand.md, fonts and voice per BRAND-GUIDELINES.md.
      Hex colors only: the DOCX import does not read CSS variables. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
   /* One family per weight: Word and LibreOffice only know normal and bold, so
@@ -67,12 +67,15 @@
   .page-break { page-break-before: always; }
   /* Keep headings with the content that follows them. */
   h1, h2, h3, .eyebrow { page-break-after: avoid; break-after: avoid; }
-  /* One page: tighter margins, type and spacing. */
-  @page { margin: 0.5in 0.6in 0.7in; }
-  body { font-size: 9.5pt; line-height: 1.45; }
-  h1 { font-size: 30pt; margin-top: 8pt; }
-  h2 { margin-top: 10pt; }
-  .data, .box { margin: 4pt 0 8pt; }
+  /* Compact type scale. */
+  body { font-size: 10pt; line-height: 1.55; }
+  h1 { font-size: 24pt; letter-spacing: 3px; margin: 14pt 0 4pt; }
+  h2 { font-size: 14pt; letter-spacing: 2px; margin: 16pt 0 6pt; }
+  h3 { font-size: 11.5pt; letter-spacing: 1.5px; margin: 6pt 0 2pt; }
+  .eyebrow { font-size: 8.5pt; letter-spacing: 3px; }
+  .lead { font-size: 10.5pt; }
+  .price { font-size: 20pt; }
+  .box td { padding: 8pt 10pt; }
 </style>
 </head>
 <body bgcolor="#010101" text="#FEFEFE">
@@ -80,39 +83,58 @@
     <tr><td align="right"><img src="brand://logo/logo.png" width="22" height="22" alt="Orage AI Agency">&nbsp;&nbsp;<span class="wordmark-sm">ORAGE AI AGENCY</span></td></tr>
   </table>
 
-  <p class="eyebrow">Orage AI Agency</p>
-  <h1>Your team at 3X capacity</h1>
-  <p class="lead">We make your team operate at 3× capacity without adding a single hire.</p>
-  <p>AI infrastructure and automation for service businesses at $1M–$100M+ ARR. AI plus humans, not AI versus humans.</p>
+  <p class="eyebrow">Proposal · [Client]</p>
+  <h1>[Outcome for the client]</h1>
+  <p class="lead">[One line: the result we will deliver and by when.]</p>
+  <p class="muted">Prepared for [Name, Title] · [Date] · Valid for 30 days</p>
 
-  <h2>What you get</h2>
-  <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
-    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Product</span></th><th bgcolor="#212121" align="left"><span class="th">What it does</span></th></tr></thead>
-    <tbody>
-      <tr><td bgcolor="#151515"><strong>STACY</strong></td><td bgcolor="#151515">24/7 AI phone agent. Answers, qualifies, books and logs to CRM. Live within 24 hours.</td></tr>
-      <tr><td bgcolor="#151515"><strong>AI Chat / Messaging Agent</strong></td><td bgcolor="#151515">Website chat and SMS automation.</td></tr>
-      <tr><td bgcolor="#151515"><strong>Pre-Configured CRM</strong></td><td bgcolor="#151515">Fills itself from STACY and chat interactions.</td></tr>
-      <tr><td bgcolor="#151515"><strong>Weekly Group Call</strong></td><td bgcolor="#151515">Bring a problem. Leave with a framework, agent or tool.</td></tr>
-    </tbody>
-  </table>
+  <h2>Where you are</h2>
+  <p>[The constraint in the client's words: team stretched, calls missed, manual work. Use their numbers.]</p>
 
-  <h2>Pick your tier</h2>
-  <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
-    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Tier</span></th><th bgcolor="#212121" align="left"><span class="th">Offer</span></th><th bgcolor="#212121" align="left"><span class="th">Price</span></th><th bgcolor="#212121" align="left"><span class="th">Delivery</span></th></tr></thead>
-    <tbody>
-      <tr><td bgcolor="#151515">1</td><td bgcolor="#151515">Orage AI Toolkit</td><td bgcolor="#151515">TBD</td><td bgcolor="#151515">DIY</td></tr>
-      <tr><td bgcolor="#151515">2</td><td bgcolor="#151515"><strong>Orage 90 — AI Enabled Business</strong></td><td bgcolor="#151515"><strong>$2,500/mo</strong></td><td bgcolor="#151515">DFY</td></tr>
-      <tr><td bgcolor="#151515">3</td><td bgcolor="#151515">Orage AI First — Agentic Infrastructure</td><td bgcolor="#151515">Custom</td><td bgcolor="#151515">DFY+</td></tr>
-    </tbody>
-  </table>
-
-  <table class="box price-box" border="1" cellspacing="0" cellpadding="12" width="100%">
+  <h2>What we build</h2>
+  <table class="box" border="1" cellspacing="0" cellpadding="12" width="100%">
     <tr><td bgcolor="#212121">
-      <p class="eyebrow">Recommended</p>
-      <p class="price">Orage 90 · $2,500 /mo</p>
-      <p class="muted">Done-for-you · 90-day performance guarantee</p>
-      <p class="cta">Secure my Orage 90 <span class="arrow">→</span> orage.agency</p>
+      <p class="eyebrow">01 — STACY</p>
+      <h3>24/7 AI phone agent</h3>
+      <p>Answers, qualifies, books and logs to your CRM. Live within 24 hours of signup.</p>
     </td></tr>
   </table>
+  <table class="box" border="1" cellspacing="0" cellpadding="12" width="100%">
+    <tr><td bgcolor="#212121">
+      <p class="eyebrow">02 — AI Chat / Messaging Agent</p>
+      <h3>Website chat and SMS</h3>
+      <p>Every inbound message gets an answer and a next step.</p>
+    </td></tr>
+  </table>
+  <table class="box" border="1" cellspacing="0" cellpadding="12" width="100%">
+    <tr><td bgcolor="#212121">
+      <p class="eyebrow">03 — Pre-Configured CRM</p>
+      <h3>A CRM that fills itself</h3>
+      <p>STACY and chat interactions land in the CRM without manual entry.</p>
+    </td></tr>
+  </table>
+
+  <h2>Investment</h2>
+  <table class="box price-box" border="1" cellspacing="0" cellpadding="12" width="100%">
+    <tr><td bgcolor="#212121">
+      <p class="eyebrow">Orage 90 — AI Enabled Business</p>
+      <p class="price">$2,500 /mo</p>
+      <p class="muted">Done-for-you · 90-day performance guarantee</p>
+    </td></tr>
+  </table>
+
+  <h2>Timeline</h2>
+  <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
+    <thead><tr><th bgcolor="#212121" align="left"><span class="th">Week</span></th><th bgcolor="#212121" align="left"><span class="th">Milestone</span></th></tr></thead>
+    <tbody>
+      <tr><td bgcolor="#151515">1</td><td bgcolor="#151515">[Kickoff and access]</td></tr>
+      <tr><td bgcolor="#151515">2</td><td bgcolor="#151515">[STACY live]</td></tr>
+      <tr><td bgcolor="#151515">3–4</td><td bgcolor="#151515">[Chat and CRM live]</td></tr>
+      <tr><td bgcolor="#151515">5–12</td><td bgcolor="#151515">[Weekly group calls and tuning]</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Next step</h2>
+  <p class="cta">Secure your Orage 90 <span class="arrow">→</span> [booking link]</p>
 </body>
 </html>

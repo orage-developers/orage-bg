@@ -13,7 +13,7 @@ the same HTML is the visual reference.
 
 ## Steps
 
-1. Read `brand/BRAND-GUIDELINES.md` and [brand.md](brand.md).
+1. Read `BRAND-GUIDELINES.md` and [brand.md](brand.md).
 2. Pick the template rule that fits the request (index in `SKILL.md`) and
    read it.
 3. Copy its HTML template next to the deliverable:

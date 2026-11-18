@@ -1,7 +1,7 @@
 /* ORAGE AI AGENCY tokens for files made with html-to-files (docs, PDFs, decks, sheets).
    Palette: gold accent, black and dark backgrounds, text inverted to the background.
    Never pure black (#000000): the darkest background is #010101.
-   Fonts and voice: BRAND-GUIDELINES.md. Never add a color. */
+   Fonts and voice: ../BRAND-GUIDELINES.md. Never add a color. */
 :root {
   /* Backgrounds: black and dark */
   --o-bg-primary: #010101;          /* page and slide background */

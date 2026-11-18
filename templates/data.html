@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Project tracker</title>
-<!-- Project tracker: tasks with status, done flag formula and a summary sheet. XLSX and PDF. -->
+<title>Data</title>
+<!-- Blank data starter: two sheets, number/text types, formulas, total row. XLSX, CSV and PDF. -->
 <style>
   /* Styling only affects the PDF of this HTML. XLSX and CSV read the tables.
-     ORAGE brand: colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md. */
+     ORAGE brand: colors per rules/brand.md, fonts and voice per BRAND-GUIDELINES.md. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
   /* One family per weight: Word and LibreOffice only know normal and bold, so
      Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
@@ -44,27 +44,22 @@
 </style>
 </head>
 <body>
-  <header><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
+  <header class="compact"><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
 
   <!-- Each top-level <table> = one XLSX sheet / one CSV file. <caption> titles it in the PDF. -->
-  <table data-sheet="Tracker">
-    <caption>Project tracker · [Client]</caption>
-    <tr><th>Week</th><th>Task</th><th>Owner</th><th>Status</th><th>Due</th><th>Done</th></tr>
-    <tr><td>1</td><td>Kickoff and access</td><td>[Owner]</td><td>Done</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D2=&quot;Done&quot;,1,0)">1</td></tr>
-    <tr><td>1</td><td>STACY live</td><td>[Owner]</td><td>Done</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D3=&quot;Done&quot;,1,0)">1</td></tr>
-    <tr><td>2</td><td>Chat agent live</td><td>[Owner]</td><td>In progress</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D4=&quot;Done&quot;,1,0)">0</td></tr>
-    <tr><td>3</td><td>CRM connected</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D5=&quot;Done&quot;,1,0)">0</td></tr>
-    <tr><td>4</td><td>First weekly review</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D6=&quot;Done&quot;,1,0)">0</td></tr>
-    <tr><td>12</td><td>90-day review</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D7=&quot;Done&quot;,1,0)">0</td></tr>
+  <table data-sheet="Sales">
+    <caption>Sales</caption>
+    <tr><th>Product</th><th>Units</th><th>Price</th><th>Total</th><th>Code</th></tr>
+    <tr><td>Product A</td><td>12</td><td>19.90</td><td data-formula="=B2*C2">238.80</td><td data-type="text">007</td></tr>
+    <tr><td>Product B</td><td>5</td><td>14.50</td><td data-formula="=B3*C3">72.50</td><td data-type="text">012</td></tr>
+    <tr class="total"><td>Total</td><td data-formula="=SUM(B2:B3)">17</td><td></td><td class="key" data-formula="=SUM(D2:D3)">311.30</td><td></td></tr>
   </table>
 
-  <table data-sheet="Summary">
-    <caption>Summary</caption>
-    <tr><th>Measure</th><th>Value</th></tr>
-    <tr><td>Tasks</td><td data-formula="=COUNTA(Tracker!B2:B7)">6</td></tr>
-    <tr><td>Done</td><td data-formula="=SUM(Tracker!F2:F7)">2</td></tr>
-    <tr><td>Progress</td><td class="key" data-formula="=ROUND(B3/B2*100,0)&amp;&quot;%&quot;">33%</td></tr>
+  <table data-sheet="Notes">
+    <caption>Notes</caption>
+    <tr><th>Date</th><th>Note</th></tr>
+    <tr><td data-type="text">2026-01-15</td><td>First line<br>Second line</td></tr>
   </table>
-  <p class="note">Status values: Done, In progress, Not started. Formulas recalculate in Excel; keep the visible text equal to the result.</p>
+  <p class="note">Text outside the tables appears only in the PDF.</p>
 </body>
 </html>

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>TikTok Q1 vs Q2 data</title>
-<!-- Comparison data: % change tiles (PDF), metric table with change and % change formulas, monthly sheet with quarter totals. XLSX, CSV and PDF. -->
+<title>Project tracker</title>
+<!-- Project tracker: tasks with status, done flag formula and a summary sheet. XLSX and PDF. -->
 <style>
   /* Styling only affects the PDF of this HTML. XLSX and CSV read the tables.
-     ORAGE brand: colors per SKILL.md, fonts and voice per brand/BRAND-GUIDELINES.md. */
+     ORAGE brand: colors per rules/brand.md, fonts and voice per BRAND-GUIDELINES.md. */
   @font-face { font-family: "Bebas Neue"; src: url("brand://fonts/BebasNeue-Regular.ttf"); font-weight: 400; }
   /* One family per weight: Word and LibreOffice only know normal and bold, so
      Medium (500) and SemiBold (600) are requested by name with font-weight normal. */
@@ -41,42 +41,30 @@
   tr.total td { font-family: "Montserrat", Helvetica, Arial, sans-serif; font-weight: 700; color: #DEDEDE; border-top: 2px solid #B68039; }
   .key { font-family: "Montserrat", Helvetica, Arial, sans-serif; color: #B68039; font-weight: 700; }
   .note { font-size: 8.5pt; color: #DEDEDE; margin: 4pt 0 0; }
-  /* Fit one landscape page. */
-  @page { margin: 0.45in 0.6in 0.65in; }
-  table { margin: 8pt 0; }
-  th, td { padding: 3.5pt 7pt; }
 </style>
 </head>
 <body>
   <header><img src="brand://logo/logo.png" alt="Orage AI Agency"><span>Orage AI Agency</span></header>
 
   <!-- Each top-level <table> = one XLSX sheet / one CSV file. <caption> titles it in the PDF. -->
-  <!-- PDF only: one tile per metric with its % change. -->
-  <div class="tiles"><div class="tile"><p class="label">Views</p><p class="pct">+42.0%</p><p class="from">405,000 → 575,000</p></div><div class="tile"><p class="label">Likes</p><p class="pct">+45.1%</p><p class="from">18,200 → 26,400</p></div><div class="tile"><p class="label">Followers gained</p><p class="pct">+59.5%</p><p class="from">2,100 → 3,350</p></div><div class="tile"><p class="label">Avg. watch time (s)</p><p class="pct">+19.1%</p><p class="from">9.4 → 11.2</p></div><div class="tile"><p class="label">Posts</p><p class="pct">+11.1%</p><p class="from">36 → 40</p></div></div>
-
-  <table data-sheet="Comparison">
-    <caption>TikTok · Q1 vs Q2 [YYYY] · Sample data</caption>
-    <tr><th>Metric</th><th>Q1</th><th>Q2</th><th>Change</th><th>% change</th></tr>
-    <tr><td>Views</td><td data-value="405000">405,000</td><td data-value="575000">575,000</td><td data-formula="=C2-B2">+170,000</td><td class="pct" data-formula="=(C2-B2)/B2" data-format="percent">+42.0%</td></tr>
-    <tr><td>Likes</td><td data-value="18200">18,200</td><td data-value="26400">26,400</td><td data-formula="=C3-B3">+8,200</td><td class="pct" data-formula="=(C3-B3)/B3" data-format="percent">+45.1%</td></tr>
-    <tr><td>Followers gained</td><td data-value="2100">2,100</td><td data-value="3350">3,350</td><td data-formula="=C4-B4">+1,250</td><td class="pct" data-formula="=(C4-B4)/B4" data-format="percent">+59.5%</td></tr>
-    <tr><td>Avg. watch time (s)</td><td data-value="9.4">9.4</td><td data-value="11.2">11.2</td><td data-formula="=C5-B5">+1.8</td><td class="pct" data-formula="=(C5-B5)/B5" data-format="percent">+19.1%</td></tr>
-    <tr><td>Posts</td><td data-value="36">36</td><td data-value="40">40</td><td data-formula="=C6-B6">+4</td><td class="pct" data-formula="=(C6-B6)/B6" data-format="percent">+11.1%</td></tr>
+  <table data-sheet="Tracker">
+    <caption>Project tracker · [Client]</caption>
+    <tr><th>Week</th><th>Task</th><th>Owner</th><th>Status</th><th>Due</th><th>Done</th></tr>
+    <tr><td>1</td><td>Kickoff and access</td><td>[Owner]</td><td>Done</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D2=&quot;Done&quot;,1,0)">1</td></tr>
+    <tr><td>1</td><td>STACY live</td><td>[Owner]</td><td>Done</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D3=&quot;Done&quot;,1,0)">1</td></tr>
+    <tr><td>2</td><td>Chat agent live</td><td>[Owner]</td><td>In progress</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D4=&quot;Done&quot;,1,0)">0</td></tr>
+    <tr><td>3</td><td>CRM connected</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D5=&quot;Done&quot;,1,0)">0</td></tr>
+    <tr><td>4</td><td>First weekly review</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D6=&quot;Done&quot;,1,0)">0</td></tr>
+    <tr><td>12</td><td>90-day review</td><td>[Owner]</td><td>Not started</td><td data-type="text">[YYYY-MM-DD]</td><td data-formula="=IF(D7=&quot;Done&quot;,1,0)">0</td></tr>
   </table>
 
-  <table data-sheet="Monthly">
-    <caption>Views by month</caption>
-    <tr><th>Month</th><th>Quarter</th><th>Views</th></tr>
-    <tr><td>Jan</td><td>Q1</td><td data-value="120000">120,000</td></tr>
-    <tr><td>Feb</td><td>Q1</td><td data-value="135000">135,000</td></tr>
-    <tr><td>Mar</td><td>Q1</td><td data-value="150000">150,000</td></tr>
-    <tr><td>Apr</td><td>Q2</td><td data-value="170000">170,000</td></tr>
-    <tr><td>May</td><td>Q2</td><td data-value="190000">190,000</td></tr>
-    <tr><td>Jun</td><td>Q2</td><td data-value="215000">215,000</td></tr>
-    <tr class="total"><td>Q1 total</td><td></td><td data-formula="=SUMIF(B2:B7,&quot;Q1&quot;,C2:C7)">405,000</td></tr>
-    <tr class="total"><td>Q2 total</td><td></td><td class="key" data-formula="=SUMIF(B2:B7,&quot;Q2&quot;,C2:C7)">575,000</td></tr>
-    <tr class="total"><td>Q2 vs Q1</td><td></td><td class="pct" data-formula="=(C9-C8)/C8" data-format="percent">+42.0%</td></tr>
+  <table data-sheet="Summary">
+    <caption>Summary</caption>
+    <tr><th>Measure</th><th>Value</th></tr>
+    <tr><td>Tasks</td><td data-formula="=COUNTA(Tracker!B2:B7)">6</td></tr>
+    <tr><td>Done</td><td data-formula="=SUM(Tracker!F2:F7)">2</td></tr>
+    <tr><td>Progress</td><td class="key" data-formula="=ROUND(B3/B2*100,0)&amp;&quot;%&quot;">33%</td></tr>
   </table>
-  <!-- Visible text is formatted; data-value and formulas hold the numbers, so XLSX stores numbers and % change shows as a percent. -->
+  <p class="note">Status values: Done, In progress, Not started. Formulas recalculate in Excel; keep the visible text equal to the result.</p>
 </body>
 </html>
