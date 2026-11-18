@@ -3,17 +3,40 @@
 <head>
 <meta charset="utf-8">
 <title>Datos</title>
+<style>
+  /* El estilo solo afecta al PDF de este HTML. XLSX y CSV leen las tablas. Marca: brand/BRAND.md. */
+  @font-face { font-family: "Syne"; src: url("brand://fonts/Syne.ttf"); font-weight: 400 800; }
+  @font-face { font-family: "Space Grotesk"; src: url("brand://fonts/SpaceGrotesk.ttf"); font-weight: 300 700; }
+  @page {
+    size: Letter landscape; margin: 0.6in 0.6in 0.8in;
+    @bottom-center { content: "ORAGE AGENCY LLC · orage.agency"; font-family: "Space Grotesk", Arial, sans-serif; font-size: 8pt; color: #525252; }
+  }
+  body { font-family: "Space Grotesk", Arial, sans-serif; font-size: 10pt; color: #0A0A0A; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  header { display: flex; align-items: center; gap: 12pt; background: #0A0A0A; color: #FAFAFA; padding: 12pt 16pt; }
+  header img { width: 40px; height: 40px; }
+  header span { font-family: "Syne", Arial, sans-serif; font-weight: 700; font-size: 13pt; text-transform: uppercase; }
+  table { width: 100%; border-collapse: collapse; margin: 18pt 0; }
+  caption { font-family: "Syne", Arial, sans-serif; font-weight: 700; font-size: 13pt; text-transform: uppercase; text-align: left; padding-bottom: 4pt; border-bottom: 2px solid #B68039; margin-bottom: 6pt; }
+  th { background: #0A0A0A; color: #FAFAFA; text-align: left; padding: 5pt 7pt; }
+  td { border-bottom: 1px solid #E5E5E5; padding: 5pt 7pt; }
+  tr.total td { font-weight: 700; border-top: 2px solid #0A0A0A; }
+  .key { color: #B68039; font-weight: 700; }
+</style>
 </head>
 <body>
-  <!-- Cada <table> = una hoja XLSX / un archivo CSV. -->
+  <header><img src="brand://logo/logo.png" alt="ORAGE AI AGENCY"><span>ORAGE AI AGENCY</span></header>
+
+  <!-- Cada <table> = una hoja XLSX / un archivo CSV. <caption> da título en el PDF. -->
   <table data-sheet="Ventas">
+    <caption>Ventas</caption>
     <tr><th>Producto</th><th>Unidades</th><th>Precio</th><th>Total</th><th>Código</th></tr>
-    <tr><td>Camiseta</td><td>12</td><td>19.90</td><td data-formula="=B2*C2">238.80</td><td data-type="text">007</td></tr>
-    <tr><td>Gorra</td><td>5</td><td>14.50</td><td data-formula="=B3*C3">72.50</td><td data-type="text">012</td></tr>
-    <tr><td>Total</td><td data-formula="=SUM(B2:B3)">17</td><td></td><td data-formula="=SUM(D2:D3)">311.30</td><td></td></tr>
+    <tr><td>Producto A</td><td>12</td><td>19.90</td><td data-formula="=B2*C2">238.80</td><td data-type="text">007</td></tr>
+    <tr><td>Producto B</td><td>5</td><td>14.50</td><td data-formula="=B3*C3">72.50</td><td data-type="text">012</td></tr>
+    <tr class="total"><td>Total</td><td data-formula="=SUM(B2:B3)">17</td><td></td><td class="key" data-formula="=SUM(D2:D3)">311.30</td><td></td></tr>
   </table>
 
   <table data-sheet="Notas">
+    <caption>Notas</caption>
     <tr><th>Fecha</th><th>Nota</th></tr>
     <tr><td data-type="text">2026-01-15</td><td>Primera línea<br>Segunda línea</td></tr>
   </table>

@@ -4,38 +4,69 @@
 <meta charset="utf-8">
 <title>Título del documento</title>
 <style>
-  /* Tamaño y márgenes de página: Chrome los usa para PDF. */
-  @page { size: A4; margin: 20mm 18mm; }
+  /* Marca ORAGE: ver brand/BRAND.md. Colores en hex (el import DOCX no lee variables CSS). */
+  @font-face { font-family: "Syne"; src: url("brand://fonts/Syne.ttf"); font-weight: 400 800; }
+  @font-face { font-family: "Space Grotesk"; src: url("brand://fonts/SpaceGrotesk.ttf"); font-weight: 300 700; }
+
+  /* Página: Chrome la usa para PDF. El pie se repite en cada página del PDF. */
+  @page {
+    size: Letter; margin: 0.75in 0.75in 0.9in;
+    @bottom-center {
+      content: "ORAGE AGENCY LLC · orage.agency";
+      font-family: "Space Grotesk", Arial, sans-serif; font-size: 8pt; color: #525252;
+    }
+  }
+
   /* Fuente en cada selector: el import DOCX de LibreOffice no hereda de body. */
-  body, h1, h2, h3, p, li, td, th { font-family: Arial, Helvetica, sans-serif; color: #111111; }
-  body { font-size: 11pt; line-height: 1.4; }
-  h1 { font-size: 22pt; margin: 0 0 6pt; }
-  h2 { font-size: 15pt; margin: 18pt 0 6pt; }
-  h3 { font-size: 12pt; margin: 12pt 0 4pt; }
+  body, p, li, td, th { font-family: "Space Grotesk", Arial, Helvetica, sans-serif; color: #0A0A0A; }
+  h1, h2, h3, .wordmark { font-family: "Syne", Arial, Helvetica, sans-serif; text-transform: uppercase; }
+  body { font-size: 11pt; line-height: 1.5; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1 { font-size: 26pt; font-weight: 800; line-height: 1.05; margin: 18pt 0 4pt; color: #0A0A0A; }
+  h2 { font-size: 15pt; font-weight: 700; margin: 20pt 0 6pt; padding-bottom: 3pt; border-bottom: 2px solid #B68039; color: #0A0A0A; }
+  h3 { font-size: 11.5pt; font-weight: 600; margin: 12pt 0 4pt; color: #0A0A0A; }
   p  { margin: 0 0 8pt; }
-  table { border-collapse: collapse; width: 100%; margin: 8pt 0; }
-  th, td { border: 1px solid #999; padding: 4pt 6pt; text-align: left; vertical-align: top; }
-  th { background: #eeeeee; }
+  a  { color: #B68039; }
+  .meta { color: #525252; font-size: 9.5pt; }
+  .key { color: #B68039; font-weight: 700; }
+
+  /* Banda de cabecera en Ink con el emblema. */
+  .band { width: 100%; border-collapse: collapse; background: #0A0A0A; }
+  .band td { background: #0A0A0A; border: none; padding: 14pt 16pt; vertical-align: middle; }
+  .wordmark { color: #FAFAFA; font-size: 14pt; font-weight: 700; letter-spacing: 0.5pt; }
+
+  .data { width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; }
+  .data th { background: #0A0A0A; color: #FAFAFA; border: 1px solid #0A0A0A; padding: 5pt 7pt; text-align: left; font-weight: 700; }
+  .data td { border: 1px solid #E5E5E5; padding: 5pt 7pt; text-align: left; vertical-align: top; }
+  .num { text-align: right; }
+  /* Texto claro sobre Ink: en DOCX el color de th se pierde, en span se conserva. */
+  .on-ink { color: #FAFAFA; font-weight: 700; }
   .page-break { page-break-before: always; }
 </style>
 </head>
 <body>
-  <h1>Título del documento</h1>
-  <p><strong>Fecha:</strong> 2026-01-01 · <strong>Autor:</strong> Nombre</p>
+  <table class="band" width="100%" cellspacing="0" cellpadding="12" bgcolor="#0A0A0A">
+    <tr>
+      <td width="64" bgcolor="#0A0A0A"><img src="brand://logo/logo.png" width="56" height="56" alt="ORAGE AI AGENCY"></td>
+      <td bgcolor="#0A0A0A"><span class="wordmark">ORAGE AI AGENCY</span></td>
+    </tr>
+  </table>
 
-  <h2>1. Sección</h2>
-  <p>Párrafo de texto. Usa <strong>negrita</strong>, <em>cursiva</em> y <a href="https://example.com">enlaces</a>.</p>
+  <h1>Título del documento</h1>
+  <p class="meta">Fecha: 2026-01-01 · Preparado por: Nombre</p>
+
+  <h2>1. Resumen</h2>
+  <p>Empiece por el resultado. Una idea por frase. Destaque <span class="key">la cifra que importa</span> en dorado.</p>
   <ul>
     <li>Elemento de lista</li>
     <li>Otro elemento</li>
   </ul>
 
   <h2>2. Tabla</h2>
-  <table border="1" cellspacing="0" cellpadding="6" width="100%">
-    <thead><tr><th>Concepto</th><th>Cantidad</th></tr></thead>
+  <table class="data" border="1" cellspacing="0" cellpadding="6" width="100%">
+    <thead><tr><th bgcolor="#0A0A0A" align="left"><span class="on-ink">Concepto</span></th><th bgcolor="#0A0A0A" align="right" class="num"><span class="on-ink">Cantidad</span></th></tr></thead>
     <tbody>
-      <tr><td>Ejemplo A</td><td>10</td></tr>
-      <tr><td>Ejemplo B</td><td>20</td></tr>
+      <tr><td>Ejemplo A</td><td align="right" class="num">10</td></tr>
+      <tr><td>Ejemplo B</td><td align="right" class="num">20</td></tr>
     </tbody>
   </table>
 

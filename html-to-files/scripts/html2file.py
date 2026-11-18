@@ -13,14 +13,22 @@ HTML is the single source of truth. Each target uses one fixed pipeline:
 Only the Python standard library is required. PDF and PPTX need Chrome or
 Chromium. DOCX and PPTX need LibreOffice (soffice).
 
+Brand assets: any "brand://<path>" URL in the HTML resolves to the skill's
+brand/ folder (logo, fonts, tokens.css). For DOCX and PPTX the brand fonts are
+installed in the user font folder when missing, so LibreOffice can use them.
+
 Usage:
   html2file.py INPUT.html --to pdf|docx|pptx|xlsx|csv [-o OUTPUT] [options]
 """
 
 import argparse
+import base64
+import contextlib
 import csv
 import html
+import mimetypes
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -38,6 +46,8 @@ SOFFICE_CANDIDATES = [
     "soffice", "libreoffice",
     "/Applications/LibreOffice.app/Contents/MacOS/soffice",
 ]
+BRAND_DIR = Path(__file__).resolve().parent.parent / "brand"
+BRAND_FONTS = {"Syne": "Syne.ttf", "Space Grotesk": "SpaceGrotesk.ttf"}
 
 
 def fail(msg):
@@ -60,6 +70,70 @@ def run(cmd, timeout=180):
     if proc.returncode != 0:
         fail(f"command failed ({proc.returncode}): {' '.join(cmd)}\n{proc.stderr.strip()}")
     return proc
+
+
+# --- Source preparation ----------------------------------------------------
+
+IMG_SRC_RE = re.compile(r'(<img\b[^>]*?\bsrc\s*=\s*)(["\'])(.*?)\2', re.I | re.S)
+
+
+def inline_image(base: Path, url: str):
+    """Return a data: URI for a local image URL, or None to keep the URL."""
+    if url.startswith(("data:", "http:", "https:")):
+        return None
+    path = Path(url[7:]) if url.startswith("file://") else base / url
+    if not path.is_file():
+        return None
+    mime = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+    return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode()}"
+
+
+@contextlib.contextmanager
+def prepared_source(src: Path, inline_images: bool):
+    """Yield an HTML path with brand:// resolved and, for DOCX, images embedded.
+
+    LibreOffice keeps file images as external links in DOCX; data: URIs are
+    embedded. The temporary copy sits next to the source so relative paths work.
+    """
+    text = src.read_text(encoding="utf-8")
+    new = text.replace("brand://", BRAND_DIR.as_uri() + "/")
+    if inline_images:
+        def repl(m):
+            data = inline_image(src.parent, html.unescape(m.group(3)))
+            return f"{m.group(1)}{m.group(2)}{data}{m.group(2)}" if data else m.group(0)
+        new = IMG_SRC_RE.sub(repl, new)
+    if new == text:
+        yield src
+        return
+    tmp = src.with_name(f".{src.stem}.html2file.html")
+    tmp.write_text(new, encoding="utf-8")
+    try:
+        yield tmp
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
+def ensure_brand_fonts():
+    """Install the brand fonts for LibreOffice when the system lacks them."""
+    if not shutil.which("fc-list"):
+        if platform.system() == "Darwin":
+            target = Path.home() / "Library/Fonts"
+        else:
+            return
+        installed = ""
+    else:
+        installed = subprocess.run(["fc-list", ":", "family"], capture_output=True,
+                                   text=True).stdout
+        target = Path.home() / ".local/share/fonts/orage-brand"
+    missing = [f for fam, f in BRAND_FONTS.items()
+               if fam not in installed and (BRAND_DIR / "fonts" / f).is_file()]
+    if not missing:
+        return
+    target.mkdir(parents=True, exist_ok=True)
+    for f in missing:
+        shutil.copy2(BRAND_DIR / "fonts" / f, target / f)
+    if shutil.which("fc-cache"):
+        subprocess.run(["fc-cache", "-f", str(target)], capture_output=True)
 
 
 # --- PDF -------------------------------------------------------------------
@@ -103,6 +177,7 @@ def soffice_convert(src: Path, out: Path, infilter: str, convert_to: str):
 
 
 def to_docx(src, out, args):
+    ensure_brand_fonts()
     soffice_convert(src, out, "HTML (StarWriter)", "docx:MS Word 2007 XML")
 
 
@@ -114,6 +189,7 @@ def to_pptx(src, out, args):
     with tempfile.TemporaryDirectory() as tmp:
         pdf = Path(tmp, src.stem + ".pdf")
         chrome_pdf(src, pdf, args.wait)
+        ensure_brand_fonts()
         soffice_convert(pdf, out, "impress_pdf_import", "pptx")
 
 
@@ -369,7 +445,8 @@ def main():
     out = args.output or src.with_suffix("." + args.to)
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    written = CONVERTERS[args.to](src, out, args) or [out]
+    with prepared_source(src, inline_images=args.to == "docx") as source:
+        written = CONVERTERS[args.to](source, out, args) or [out]
     for path in written:
         print(path)
 

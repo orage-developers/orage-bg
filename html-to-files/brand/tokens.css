@@ -1,0 +1,32 @@
+/* ORAGE AI AGENCY brand tokens. Source: BRAND.md (orage.agency site styles, 2026-11-13).
+   Paste into :root of every page, document, deck and email. Never add a color. */
+:root {
+  /* Primary */
+  --o-ink: #0A0A0A;          /* dark backgrounds, text on light */
+  --o-gold: #B68039;         /* the one accent: buttons, links, rules, key numbers */
+  --o-white: #FFFFFF;
+
+  /* Supporting */
+  --o-gold-light: #C8922A;   /* hover, gradient end */
+  --o-off-white: #FAFAFA;    /* text on ink */
+  --o-surface: #F5F5F5;      /* light sections */
+  --o-border: #E5E5E5;       /* lines on light */
+  --o-graphite: #262626;     /* cards and lines on dark */
+  --o-charcoal: #171717;     /* raised surfaces on dark */
+  --o-muted: #A1A1A1;        /* secondary text on dark */
+  --o-slate: #525252;        /* secondary text on light */
+
+  --o-gradient-gold: linear-gradient(135deg, #B68039 0%, #C8922A 100%);
+  --o-gradient-dark: radial-gradient(circle at 80% 20%, #262626 0%, #0A0A0A 70%);
+  --o-photo-overlay: rgba(10, 10, 10, 0.6);
+
+  /* Type */
+  --font-display: "Syne", Arial, "Helvetica Neue", sans-serif;      /* headings, uppercase */
+  --font-body: "Space Grotesk", Arial, "Helvetica Neue", sans-serif; /* body and UI */
+  --lh-heading: 1;
+  --lh-body: 1.5;
+}
+
+/* Google Fonts:
+   https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap
+   Local copies: fonts/Syne.ttf, fonts/SpaceGrotesk.ttf (OFL). Logos: logo/. */

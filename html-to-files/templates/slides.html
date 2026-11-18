@@ -4,46 +4,84 @@
 <meta charset="utf-8">
 <title>Título de la presentación</title>
 <style>
-  /* 16:9. Cada <section class="slide"> es una página = una diapositiva. */
+  /* Marca ORAGE: ver brand/BRAND.md. Portada en Ink, contenido en blanco, oro solo para la cifra clave. */
+  @font-face { font-family: "Syne"; src: url("brand://fonts/Syne.ttf"); font-weight: 400 800; }
+  @font-face { font-family: "Space Grotesk"; src: url("brand://fonts/SpaceGrotesk.ttf"); font-weight: 300 700; }
+  :root {
+    --o-ink: #0A0A0A; --o-gold: #B68039; --o-white: #FFFFFF; --o-off-white: #FAFAFA;
+    --o-border: #E5E5E5; --o-muted: #A1A1A1; --o-slate: #525252;
+    --font-display: "Syne", Arial, sans-serif; --font-body: "Space Grotesk", Arial, sans-serif;
+  }
+
+  /* 16:9. Cada <section class="slide"> es una página = una diapositiva. No cambiar. */
   @page { size: 13.333in 7.5in; margin: 0; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
-  body { font-family: Arial, Helvetica, sans-serif; color: #111; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: var(--font-body); color: var(--o-ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .slide {
-    width: 13.333in; height: 7.5in; padding: 0.7in 0.9in;
+    position: relative; width: 13.333in; height: 7.5in; padding: 0.8in 0.9in 0.9in;
     overflow: hidden; page-break-after: always; break-after: page;
-    display: flex; flex-direction: column; background: #ffffff;
+    display: flex; flex-direction: column; background: var(--o-white);
   }
   .slide:last-child { page-break-after: auto; break-after: auto; }
-  .slide h1 { font-size: 48pt; margin: 0 0 0.3in; }
-  .slide h2 { font-size: 34pt; margin: 0 0 0.3in; }
-  .slide p, .slide li { font-size: 22pt; line-height: 1.35; }
-  .title { justify-content: center; background: #111111; color: #ffffff; }
-  .cols { display: flex; gap: 0.5in; }
+  .slide h1, .slide h2 { font-family: var(--font-display); text-transform: uppercase; line-height: 1; margin: 0; }
+  .slide h1 { font-size: 60pt; font-weight: 800; }
+  .slide h2 { font-size: 36pt; font-weight: 700; margin-bottom: 0.15in; }
+  .rule { width: 1.2in; height: 3px; background: var(--o-gold); margin: 0.2in 0 0.35in; }
+  .slide p, .slide li { font-size: 22pt; line-height: 1.4; }
+  .slide ul { margin: 0; padding-left: 0.35in; }
+  .slide li { margin-bottom: 0.12in; }
+  .slide li::marker { color: var(--o-gold); }
+  .foot {
+    position: absolute; left: 0.9in; right: 0.9in; bottom: 0.4in;
+    display: flex; justify-content: space-between; font-size: 10pt; color: var(--o-slate);
+  }
+
+  .ink { background: var(--o-ink); color: var(--o-off-white); justify-content: center; }
+  .ink .foot { color: var(--o-muted); }
+  .ink .sub { color: var(--o-muted); font-size: 20pt; margin: 0; }
+  .emblem { width: 1.3in; height: 1.3in; margin-bottom: 0.35in; }
+
+  .big { font-family: var(--font-display); font-size: 120pt; font-weight: 800; color: var(--o-gold); line-height: 1; }
+  .cols { display: flex; gap: 0.6in; }
   .cols > div { flex: 1; }
 </style>
 </head>
 <body>
-  <section class="slide title">
-    <h1>Título de la presentación</h1>
-    <p>Subtítulo · Fecha</p>
+  <section class="slide ink">
+    <img class="emblem" src="brand://logo/logo.png" alt="ORAGE AI AGENCY">
+    <h1>Título de la<br>presentación</h1>
+    <div class="rule"></div>
+    <p class="sub">Subtítulo · Fecha</p>
+    <div class="foot"><span>ORAGE AI AGENCY</span><span>orage.agency</span></div>
   </section>
 
   <section class="slide">
     <h2>Puntos clave</h2>
+    <div class="rule"></div>
     <ul>
       <li>Una idea por línea</li>
       <li>Máximo 5–6 viñetas</li>
-      <li>Texto grande, legible</li>
+      <li>Empiece por el resultado</li>
     </ul>
+    <div class="foot"><span>ORAGE AI AGENCY</span><span>2</span></div>
   </section>
 
   <section class="slide">
-    <h2>Dos columnas</h2>
+    <h2>La cifra que importa</h2>
+    <div class="rule"></div>
     <div class="cols">
-      <div><p>Columna izquierda.</p></div>
-      <div><p>Columna derecha.</p></div>
+      <div><div class="big">2X</div></div>
+      <div><p>Una frase que explica la cifra. Sin promesas: los resultados son afirmaciones, no garantías.</p></div>
     </div>
+    <div class="foot"><span>ORAGE AI AGENCY</span><span>3</span></div>
+  </section>
+
+  <section class="slide ink">
+    <img class="emblem" src="brand://logo/logo.png" alt="ORAGE AI AGENCY">
+    <h2>ORAGE AI AGENCY</h2>
+    <div class="rule"></div>
+    <p class="sub">orage.agency</p>
   </section>
 </body>
 </html>
